@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{9F8BE509-A712-4893-BEB1-9AF1E7C769F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{EEF236EB-8F51-4E15-B533-080960871414}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{80E22882-CA7A-4EFE-9A4D-4973B64E9E77}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dormendo.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Client\\Client.csproj
+		SccProjectName1 = Client
+		SccLocalPath1 = Client
+		SccProjectUniqueName2 = Server\\Server.csproj
+		SccProjectName2 = Server
+		SccLocalPath2 = Server
+		SccProjectUniqueName3 = Common\\Common.csproj
+		SccProjectName3 = Common
+		SccLocalPath3 = Common
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F8BE509-A712-4893-BEB1-9AF1E7C769F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F8BE509-A712-4893-BEB1-9AF1E7C769F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F8BE509-A712-4893-BEB1-9AF1E7C769F0}.Debug|x64.ActiveCfg = Debug|x64
+		{9F8BE509-A712-4893-BEB1-9AF1E7C769F0}.Debug|x64.Build.0 = Debug|x64
+		{9F8BE509-A712-4893-BEB1-9AF1E7C769F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F8BE509-A712-4893-BEB1-9AF1E7C769F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F8BE509-A712-4893-BEB1-9AF1E7C769F0}.Release|x64.ActiveCfg = Release|x64
+		{9F8BE509-A712-4893-BEB1-9AF1E7C769F0}.Release|x64.Build.0 = Release|x64
+		{EEF236EB-8F51-4E15-B533-080960871414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF236EB-8F51-4E15-B533-080960871414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF236EB-8F51-4E15-B533-080960871414}.Debug|x64.ActiveCfg = Debug|x64
+		{EEF236EB-8F51-4E15-B533-080960871414}.Debug|x64.Build.0 = Debug|x64
+		{EEF236EB-8F51-4E15-B533-080960871414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF236EB-8F51-4E15-B533-080960871414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF236EB-8F51-4E15-B533-080960871414}.Release|x64.ActiveCfg = Release|x64
+		{EEF236EB-8F51-4E15-B533-080960871414}.Release|x64.Build.0 = Release|x64
+		{80E22882-CA7A-4EFE-9A4D-4973B64E9E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80E22882-CA7A-4EFE-9A4D-4973B64E9E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80E22882-CA7A-4EFE-9A4D-4973B64E9E77}.Debug|x64.ActiveCfg = Debug|x64
+		{80E22882-CA7A-4EFE-9A4D-4973B64E9E77}.Debug|x64.Build.0 = Debug|x64
+		{80E22882-CA7A-4EFE-9A4D-4973B64E9E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80E22882-CA7A-4EFE-9A4D-4973B64E9E77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80E22882-CA7A-4EFE-9A4D-4973B64E9E77}.Release|x64.ActiveCfg = Release|x64
+		{80E22882-CA7A-4EFE-9A4D-4973B64E9E77}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

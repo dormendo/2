@@ -1,0 +1,236 @@
+Running the write file Tests:
+   Total time writing < 1MB with File.WriteAllLines				= 00:00:00.0040003
+   Total time writing 10MB with File.WriteAllLines				= 00:00:00.0280016
+   Total time writing 50MB with File.WriteAllLines				= 00:00:00.1280073
+
+   Total time writing < 1MB with File.TestWriteAllText				= 00:00:00.0030002
+   Total time writing 10MB with File.TestWriteAllText				= 00:00:00.0250015
+   Total time writing 50MB with File.TestWriteAllText				= 00:00:00.1270072
+
+   Total time writing < 1MB with StreamWriter1.Write				= 00:00:00.0030002
+   Total time writing 10MB with StreamWriter1.Write				= 00:00:00.0240014
+   Total time writing 50MB with StreamWriter1.Write				= 00:00:00.1150065
+
+   Total time writing < 1MB with BinaryWriter.Write				= 00:00:00.0010000
+   Total time writing 10MB with BinaryWriter.Write				= 00:00:00.0060004
+   Total time writing 50MB with BinaryWriter.Write				= 00:00:00.4660266
+
+   Total time writing < 1MB with FileStream1.Write no parsing  			= 00:00:00.0010001
+   Total time writing 10MB with FileStream1.Write no parsing  			= 00:00:00.0050003
+   Total time writing 50MB with FileStream1.Write no parsing  			= 00:00:00.3380193
+   Total time writing < 1MB with FileStream2.Write no parsing  			= 00:00:00.0180010
+   Total time writing 10MB with FileStream2.Write no parsing  			= 00:00:00.0930053
+   Total time writing 50MB with FileStream2.Write no parsing  			= 00:00:00.4830276
+
+   Total time writing < 1MB with WriteFile2.Write API No Parsing		= 00:00:00.0010000
+   Total time writing 10MB with WriteFile2.Write API No Parsing		        = 00:00:00.0050003
+   Total time writing 50MB with WriteFile2.Write API No Parsing		        = 00:00:00.0260015
+   Total time writing < 1MB with WriteFile1.Write API No Parsing		= 00:00:00.0010000
+   Total time writing 10MB with WriteFile1.Write API No Parsing		        = 00:00:00.0050003
+   Total time writing 50MB with WriteFile1.Write API No Parsing		        = 00:00:00.3540203
+Write file tests have completed.
+
+Running the read file tests:
+   Total time reading < 1MB with File.ReadAllLines				= 00:00:00.0320018
+   Total time reading 10MB with File.ReadAllLines				= 00:00:00.0460027
+   Total time reading 50MB with File.ReadAllLines				= 00:00:00.1990113
+   Total time reading < 1MB with File.ReadAllText				= 00:00:00.0020001
+   Total time reading 10MB with File.ReadAllText				= 00:00:00.0320018
+   Total time reading 50MB with File.ReadAllText				= 00:00:00.1520087
+   Total time reading < 1MB with File.ReadAllBytes				= 00:00:00.0270016
+   Total time reading 10MB with File.ReadAllBytes				= 00:00:00.0060003
+   Total time reading 50MB with File.ReadAllBytes				= 00:00:00.0320018
+
+   Total time reading < 1MB with BinaryReader.Read				= 00:00:00.0010001
+   Total time reading 10MB with BinaryReader.Read				= 00:00:00.0190011
+   Total time reading 50MB with BinaryReader.Read				= 00:00:00.0960055
+
+   Total time reading < 1MB with StreamReader1.Read				= 00:00:00.0010001
+   Total time reading 10MB with StreamReader1.Read				= 00:00:00.0150008
+   Total time reading 50MB with StreamReader1.Read				= 00:00:00.0770044
+   Total time reading < 1MB with StreamReader2.Read(large buf)			= 00:00:00.0040003
+   Total time reading 10MB with StreamReader2.Read(large buf)			= 00:00:00.0120007
+   Total time reading 50MB with StreamReader2.Read(large buf)			= 00:00:00.0570033
+   Total time reading < 1MB with StreamReader3.ReadBlock			= 00:00:00.0010001
+   Total time reading 10MB with StreamReader3.ReadBlock				= 00:00:00.0120006
+   Total time reading 50MB with StreamReader3.ReadBlock				= 00:00:00.0580034
+   Total time reading < 1MB with StreamReader4.ReadToEnd			= 00:00:00.0010000
+   Total time reading 10MB with StreamReader4.ReadToEnd				= 00:00:00.0280016
+   Total time reading 50MB with StreamReader4.ReadToEnd				= 00:00:00.1260072
+   Total time reading < 1MB with mult StreamReader5.Read			= 00:00:00.0010000
+   Total time reading 10MB with mult StreamReader5.Read				= 00:00:00.0130008
+   Total time reading 50MB with mult StreamReader5.Read				= 00:00:00.0620036
+   Total time reading < 1MB with StreamReader6.ReadLine				= 00:00:00.0020001
+   Total time reading 10MB with StreamReader6.ReadLine				= 00:00:00.0360020
+   Total time reading 50MB with StreamReader6.ReadLine				= 00:00:00.2360135
+   Total time reading < 1MB with StreamReader7.Read parsing			= 00:00:00.1390079
+   Total time reading 10MB with StreamReader7.Read parsing			= 00:00:00.1340076
+   Total time reading 50MB with StreamReader7.Read parsing			= 00:00:00.1810103
+
+   Total time reading < 1MB with FileStream1.Read no parsing  			= 00:00:00.0030001
+   Total time reading 10MB with FileStream1.Read no parsing  			= 00:00:00.0040003
+   Total time reading 50MB with FileStream1.Read no parsing  			= 00:00:00.0190010
+   Total time reading < 1MB with FileStream2.Read parsing			= 00:00:00.0190010
+   Total time reading 10MB with FileStream2.Read parsing			= 00:00:00.0220013
+   Total time reading 50MB with FileStream2.Read parsing			= 00:00:00.0370021
+   Total time reading < 1MB with multiFileStream2A.Read parsing			= 00:00:00.0190011
+   Total time reading 10MB with multiFileStream2A.Read parsing			= 00:00:00.0210012
+   Total time reading 50MB with multiFileStream2A.Read parsing			= 00:00:00.0330019
+   Total time reading < 1MB with FileStream3.Read(Rand) no parsing		= 00:00:00.0010000
+   Total time reading 10MB with FileStream3.Read(Rand) no parsing		= 00:00:00.0030002
+   Total time reading 50MB with FileStream3.Read(Rand) no parsing		= 00:00:00.0170010
+   Total time reading < 1MB with FileStream4.BeginRead no parsing		= 00:00:00.0010000
+   Total time reading 10MB with FileStream4.BeginRead no parsing		= 00:00:00.0040003
+   Total time reading 50MB with FileStream4.BeginRead no parsing		= 00:00:00.0180010
+   Total time reading < 1MB with FileStream5.BeginRead parsing			= 00:00:00.0920053
+   Total time reading 10MB with FileStream5.BeginRead parsing			= 00:00:01.5490886
+   Total time reading 50MB with FileStream5.BeginRead parsing			= 00:00:07.7724445
+   Total time reading < 1MB with FileStream6.BeginRead parsing			= 00:00:00.0740043
+   Total time reading 10MB with FileStream6.BeginRead parsing			= 00:00:01.5330877
+   Total time reading 50MB with FileStream6.BeginRead parsing			= 00:00:07.7544436
+
+   Total time reading < 1MB with ReadFile.Read API No Parsing			= 00:00:00.0010001
+   Total time reading 10MB with ReadFile.Read API No Parsing			= 00:00:00.0040002
+   Total time reading 50MB with ReadFile.Read API No Parsing			= 00:00:00.0190011
+   Total time reading < 1MB with ReadFile API block No Parsing			= 00:00:00
+   Total time reading 10MB with ReadFile API block No Parsing			= 00:00:00.0030002
+   Total time reading 50MB with ReadFile API block No Parsing			= 00:00:00.0140008
+
+   Total time reading < 1MB with BinaryReader.Read				= 00:00:00.0010000
+   Total time reading 10MB with BinaryReader.Read				= 00:00:00.0190011
+   Total time reading 50MB with BinaryReader.Read				= 00:00:00.0920052
+   Total time reading < 1MB with StreamReader2.Read(large buf)			= 00:00:00.0010001
+   Total time reading 10MB with StreamReader2.Read(large buf)			= 00:00:00.0120006
+   Total time reading 50MB with StreamReader2.Read(large buf)			= 00:00:00.0600034
+   Total time reading < 1MB with FileStream1.Read no parsing  			= 00:00:00.0010001
+   Total time reading 10MB with FileStream1.Read no parsing  			= 00:00:00.0040002
+   Total time reading 50MB with FileStream1.Read no parsing  			= 00:00:00.0190011
+   Total time reading < 1MB with ReadFile API No Open/Close			= 00:00:00
+   Total time reading 10MB with ReadFile API No Open/Close			= 00:00:00.0040002
+   Total time reading 50MB with ReadFile API No Open/Close			= 00:00:00.0190011
+Read file tests have completed.
+
+Running the read file tests:
+   Total time reading < 1MB with File.ReadAllLines				= 00:00:00.0030002
+   Total time reading 10MB with File.ReadAllLines				= 00:00:00.0410023
+   Total time reading 50MB with File.ReadAllLines				= 00:00:00.2000115
+   Total time reading < 1MB with File.ReadAllText				= 00:00:00.0020001
+   Total time reading 10MB with File.ReadAllText				= 00:00:00.0330019
+   Total time reading 50MB with File.ReadAllText				= 00:00:00.1720099
+   Total time reading < 1MB with File.ReadAllBytes				= 00:00:00.0090005
+   Total time reading 10MB with File.ReadAllBytes				= 00:00:00.0060004
+   Total time reading 50MB with File.ReadAllBytes				= 00:00:00.0250014
+
+   Total time reading < 1MB with BinaryReader.Read				= 00:00:00.0010000
+   Total time reading 10MB with BinaryReader.Read				= 00:00:00.0200012
+   Total time reading 50MB with BinaryReader.Read				= 00:00:00.0960055
+
+   Total time reading < 1MB with StreamReader1.Read				= 00:00:00.0010001
+   Total time reading 10MB with StreamReader1.Read				= 00:00:00.0150008
+   Total time reading 50MB with StreamReader1.Read				= 00:00:00.0750043
+   Total time reading < 1MB with StreamReader2.Read(large buf)			= 00:00:00
+   Total time reading 10MB with StreamReader2.Read(large buf)			= 00:00:00.0110006
+   Total time reading 50MB with StreamReader2.Read(large buf)			= 00:00:00.0590034
+   Total time reading < 1MB with StreamReader3.ReadBlock			= 00:00:00
+   Total time reading 10MB with StreamReader3.ReadBlock				= 00:00:00.0110006
+   Total time reading 50MB with StreamReader3.ReadBlock				= 00:00:00.0580033
+   Total time reading < 1MB with StreamReader4.ReadToEnd			= 00:00:00.0010000
+   Total time reading 10MB with StreamReader4.ReadToEnd				= 00:00:00.0270015
+   Total time reading 50MB with StreamReader4.ReadToEnd				= 00:00:00.1350078
+   Total time reading < 1MB with mult StreamReader5.Read			= 00:00:00.0130007
+   Total time reading 10MB with mult StreamReader5.Read				= 00:00:00.0150008
+   Total time reading 50MB with mult StreamReader5.Read				= 00:00:00.0660038
+   Total time reading < 1MB with StreamReader6.ReadLine				= 00:00:00.0020001
+   Total time reading 10MB with StreamReader6.ReadLine				= 00:00:00.0350020
+   Total time reading 50MB with StreamReader6.ReadLine				= 00:00:00.2020115
+   Total time reading < 1MB with StreamReader7.Read parsing			= 00:00:00.1230071
+   Total time reading 10MB with StreamReader7.Read parsing			= 00:00:00.1340076
+   Total time reading 50MB with StreamReader7.Read parsing			= 00:00:00.1810104
+
+   Total time reading < 1MB with FileStream1.Read no parsing  			= 00:00:00.0030001
+   Total time reading 10MB with FileStream1.Read no parsing  			= 00:00:00.0040003
+   Total time reading 50MB with FileStream1.Read no parsing  			= 00:00:00.0190011
+   Total time reading < 1MB with FileStream2.Read parsing			= 00:00:00.0190010
+   Total time reading 10MB with FileStream2.Read parsing			= 00:00:00.0220013
+   Total time reading 50MB with FileStream2.Read parsing			= 00:00:00.0370021
+   Total time reading < 1MB with multiFileStream2A.Read parsing			= 00:00:00.0180010
+   Total time reading 10MB with multiFileStream2A.Read parsing			= 00:00:00.0210012
+   Total time reading 50MB with multiFileStream2A.Read parsing			= 00:00:00.0320018
+   Total time reading < 1MB with FileStream3.Read(Rand) no parsing		= 00:00:00.0010001
+   Total time reading 10MB with FileStream3.Read(Rand) no parsing		= 00:00:00.0030001
+   Total time reading 50MB with FileStream3.Read(Rand) no parsing		= 00:00:00.0150008
+   Total time reading < 1MB with FileStream4.BeginRead no parsing		= 00:00:00
+   Total time reading 10MB with FileStream4.BeginRead no parsing		= 00:00:00.0030001
+   Total time reading 50MB with FileStream4.BeginRead no parsing		= 00:00:00.0170010
+   Total time reading < 1MB with FileStream5.BeginRead parsing			= 00:00:00.0920052
+   Total time reading 10MB with FileStream5.BeginRead parsing			= 00:00:01.5490886
+   Total time reading 50MB with FileStream5.BeginRead parsing			= 00:00:07.7704445
+   Total time reading < 1MB with FileStream6.BeginRead parsing			= 00:00:00.0730042
+   Total time reading 10MB with FileStream6.BeginRead parsing			= 00:00:01.5330877
+   Total time reading 50MB with FileStream6.BeginRead parsing			= 00:00:07.7514433
+
+   Total time reading < 1MB with ReadFile.Read API No Parsing			= 00:00:00
+   Total time reading 10MB with ReadFile.Read API No Parsing			= 00:00:00.0040002
+   Total time reading 50MB with ReadFile.Read API No Parsing			= 00:00:00.0190011
+   Total time reading < 1MB with ReadFile API block No Parsing			= 00:00:00
+   Total time reading 10MB with ReadFile API block No Parsing			= 00:00:00.0030001
+   Total time reading 50MB with ReadFile API block No Parsing			= 00:00:00.0140008
+
+   Total time reading < 1MB with BinaryReader.Read				= 00:00:00.0010001
+   Total time reading 10MB with BinaryReader.Read				= 00:00:00.0190010
+   Total time reading 50MB with BinaryReader.Read				= 00:00:00.0920053
+   Total time reading < 1MB with StreamReader2.Read(large buf)			= 00:00:00.0010000
+   Total time reading 10MB with StreamReader2.Read(large buf)			= 00:00:00.0110006
+   Total time reading 50MB with StreamReader2.Read(large buf)			= 00:00:00.0580033
+   Total time reading < 1MB with FileStream1.Read no parsing  			= 00:00:00
+   Total time reading 10MB with FileStream1.Read no parsing  			= 00:00:00.0030002
+   Total time reading 50MB with FileStream1.Read no parsing  			= 00:00:00.0190011
+   Total time reading < 1MB with ReadFile API No Open/Close			= 00:00:00
+   Total time reading 10MB with ReadFile API No Open/Close			= 00:00:00.0030001
+   Total time reading 50MB with ReadFile API No Open/Close			= 00:00:00.0190011
+Read file tests have completed.
+
+Running the write file Tests:
+   Total time writing < 1MB with File.WriteAllLines				= 00:00:00.0050003
+   Total time writing 10MB with File.WriteAllLines				= 00:00:00.0280016
+   Total time writing 50MB with File.WriteAllLines				= 00:00:00.1280073
+
+   Total time writing < 1MB with File.TestWriteAllText				= 00:00:00.0040002
+   Total time writing 10MB with File.TestWriteAllText				= 00:00:00.0240013
+   Total time writing 50MB with File.TestWriteAllText				= 00:00:00.1280073
+
+   Total time writing < 1MB with StreamWriter1.Write				= 00:00:00.0020001
+   Total time writing 10MB with StreamWriter1.Write				= 00:00:00.0210012
+   Total time writing 50MB with StreamWriter1.Write				= 00:00:00.1040059
+
+   Total time writing < 1MB with BinaryWriter.Write				= 00:00:00.0010001
+   Total time writing 10MB with BinaryWriter.Write				= 00:00:00.0050003
+   Total time writing 50MB with BinaryWriter.Write				= 00:00:00.3260186
+
+   Total time writing < 1MB with FileStream1.Write no parsing  			= 00:00:00
+   Total time writing 10MB with FileStream1.Write no parsing  			= 00:00:00.0040002
+   Total time writing 50MB with FileStream1.Write no parsing  			= 00:00:00.3120179
+   Total time writing < 1MB with FileStream2.Write no parsing  			= 00:00:00.0150008
+   Total time writing 10MB with FileStream2.Write no parsing  			= 00:00:00.1040060
+   Total time writing 50MB with FileStream2.Write no parsing  			= 00:00:00.4880279
+
+   Total time writing < 1MB with WriteFile2.Write API No Parsing		= 00:00:00.0010000
+   Total time writing 10MB with WriteFile2.Write API No Parsing			= 00:00:00.0060004
+   Total time writing 50MB with WriteFile2.Write API No Parsing			= 00:00:00.0250014
+   Total time writing < 1MB with WriteFile1.Write API No Parsing		= 00:00:00.0010000
+   Total time writing 10MB with WriteFile1.Write API No Parsing			= 00:00:00.0040002
+   Total time writing 50MB with WriteFile1.Write API No Parsing			= 00:00:00.3190183
+Write file tests have completed.
+
+Running the long read file tests:
+   Total time reading 50MB with FilesStream.Read 100 times 			= 00:00:01.8811076
+   Total time reading 50MB with mult FilesStream.Read 100 times 		= 00:00:02.0551175
+   Total time reading 50MB with mult ReadFile API 100 times 			= 00:00:01.4020802
+   Total time reading 50MB with ReadFile API 100 times 				= 00:00:01.8941083
+The long read file tests have completed.
+
+Running the long Write file tests:
+   Total time writing 50MB with FilesStream1.Write 10 times 			= 00:00:03.1391795
+   Total time writing 50MB with FilesStream2.Write 10 times 			= 00:00:04.9452829
+The long write file tests have completed.
+

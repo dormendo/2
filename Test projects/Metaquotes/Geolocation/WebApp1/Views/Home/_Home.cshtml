@@ -1,0 +1,99 @@
+﻿<div class="page-header">
+	<h1>База геолокации<br /><small>Поиск владельца IP-адреса и диапазонов адресов по городу</small></h1>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<ul class="nav nav-pills nav-stacked" data-bind="foreach: tabs">
+				<li role="presentation" data-bind="css: { active: $data == $root.activeTab() },
+                click: $root.activateTab">
+					<a href="#" data-bind="text: $data.title"></a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-9">
+			<!-- Город -->
+			<div class="panel panel-default" data-bind="with: cityViewModel, visible: $root.activeTab().view == 'city'">
+				<div class="panel-heading form-inline">
+					Поиск по городу
+					<input data-bind="value: city" class="form-control" />
+					<button data-bind="click: getLocations(city())" class="btn btn-default" type="submit">Поиск</button>
+				</div>
+				<div class="panel-body">
+					<p class="text-danger" data-bind="text: error, visible: error"></p>
+					<table class="table table-bordered" data-bind="visible: loaded() == true">
+						<thead>
+							<tr>
+								<th>№</th>
+								<th>Страна</th>
+								<th>Регион</th>
+								<th>Почтовый индекс</th>
+								<th>Город</th>
+								<th>Организация</th>
+								<th>Широта</th>
+								<th>Долгота</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: locations">
+							<tr>
+								<td data-bind="text: $index() + 1"></td>
+								<td data-bind="text: country"></td>
+								<td data-bind="text: region"></td>
+								<td data-bind="text: postal"></td>
+								<td data-bind="text: city"></td>
+								<td data-bind="text: organization"></td>
+								<td data-bind="text: latitude"></td>
+								<td data-bind="text: longitude"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<!-- IP-адрес -->
+			<div class="panel panel-default" data-bind="with: ipViewModel, visible: $root.activeTab().view == 'ip'">
+				<div class="panel-heading form-inline">
+					Поиск по IP-адресу
+					<input data-bind="value: ip" class="form-control" />
+					<button data-bind="click: getLocation(ip())" class="btn btn-default">Поиск</button>
+				</div>
+				<div class="panel-body">
+					<p class="text-danger" data-bind="text: error, visible: error"></p>
+					<table class="table" data-bind="visible: loaded() == true">
+						<tbody data-bind="with: location">
+							<tr>
+								<td>Страна:</td>
+								<td data-bind="text: country"></td>
+							</tr>
+							<tr>
+								<td>Регион:</td>
+								<td data-bind="text: region"></td>
+							</tr>
+							<tr>
+								<td>Почтовый индекс:</td>
+								<td data-bind="text: postal"></td>
+							</tr>
+							<tr>
+								<td>Город:</td>
+								<td data-bind="text: city"></td>
+							</tr>
+							<tr>
+								<td>Организация:</td>
+								<td data-bind="text: organization"></td>
+							</tr>
+							<tr>
+								<td>Долгота:</td>
+								<td data-bind="text: latitude"></td>
+							</tr>
+							<tr>
+								<td>Широта:</td>
+								<td data-bind="text: longitude"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

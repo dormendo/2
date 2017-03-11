@@ -1,0 +1,42 @@
+// Example of how to serialize any object to an array of bytes.
+BB bb = new BB();
+MemoryStream MS = new MemoryStream(); 
+BinaryFormatter BF = new BinaryFormatter(); 
+BF.Serialize(MS, bb); 
+byte [] ByteArray = MS.ToArray(); 
+// Convert the byte array back to the original object.
+MemoryStream MS1 = new MemoryStream(ByteArray);
+BinaryFormatter BF1 = new BinaryFormatter();
+BB bb1 = (BB) BF1.Deserialize(MS1);
+// The following classes are required to test the above code.
+// The [Serializable] .NET attribute is required for this code to work.
+[Serializable]
+public class AA
+{
+	string s;
+	int i;
+	double d;
+	public AA()
+	{
+		s = "abc";
+		i = 5;
+		d = 3.3;
+	}
+}
+
+[Serializable]
+public class BB
+{
+	int a;
+	double b;
+	byte c;
+	AA aa;
+	public BB()
+	{
+		a = 1;
+		b = 2.2;
+		c = 3;
+		aa = new AA();
+	}
+}
+}

@@ -1,0 +1,8 @@
+C:\Projects\dormendo\Test projects\TestTcp\Client\bin\Release\Client.exe.config
+C:\Projects\dormendo\Test projects\TestTcp\Client\bin\Release\Client.exe
+C:\Projects\dormendo\Test projects\TestTcp\Client\bin\Release\Client.pdb
+C:\Projects\dormendo\Test projects\TestTcp\Client\bin\Release\Common.dll
+C:\Projects\dormendo\Test projects\TestTcp\Client\bin\Release\Common.pdb
+C:\Projects\dormendo\Test projects\TestTcp\Client\obj\Release\Client.csprojResolveAssemblyReference.cache
+C:\Projects\dormendo\Test projects\TestTcp\Client\obj\Release\Client.exe
+C:\Projects\dormendo\Test projects\TestTcp\Client\obj\Release\Client.pdb

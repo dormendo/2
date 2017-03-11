@@ -1,0 +1,4 @@
+C:\Projects\dormendo\Test projects\TestTcp\Common\bin\Release\Common.dll
+C:\Projects\dormendo\Test projects\TestTcp\Common\bin\Release\Common.pdb
+C:\Projects\dormendo\Test projects\TestTcp\Common\obj\Release\Common.dll
+C:\Projects\dormendo\Test projects\TestTcp\Common\obj\Release\Common.pdb

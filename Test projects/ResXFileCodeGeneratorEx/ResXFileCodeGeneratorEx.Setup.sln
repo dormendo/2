@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{B2B9393B-C39E-4A1A-8EF1-99A203B120F0}"
+	ProjectSection(SolutionItems) = preProject
+		src\Dependencies\envdte.dll = src\Dependencies\envdte.dll
+		src\Dependencies\envdte80.dll = src\Dependencies\envdte80.dll
+		src\Dependencies\microsoft.visualstudio.designer.interfaces.dll = src\Dependencies\microsoft.visualstudio.designer.interfaces.dll
+		src\Dependencies\Microsoft.VisualStudio.OLE.Interop.dll = src\Dependencies\Microsoft.VisualStudio.OLE.Interop.dll
+		src\Dependencies\Microsoft.VisualStudio.Shell.dll = src\Dependencies\Microsoft.VisualStudio.Shell.dll
+		src\Dependencies\microsoft.visualstudio.shell.interop.8.0.dll = src\Dependencies\microsoft.visualstudio.shell.interop.8.0.dll
+		src\Dependencies\Microsoft.VisualStudio.Shell.Interop.dll = src\Dependencies\Microsoft.VisualStudio.Shell.Interop.dll
+		src\Dependencies\microsoft.visualstudio.textmanager.interop.8.0.dll = src\Dependencies\microsoft.visualstudio.textmanager.interop.8.0.dll
+		src\Dependencies\Microsoft.VisualStudio.TextManager.Interop.dll = src\Dependencies\Microsoft.VisualStudio.TextManager.Interop.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Design", "Design", "{08F6FD98-510A-42B1-B19D-9E7DA087B967}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{9390AFD1-F07E-41BF-8C38-46F23CA6F9F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResXFileCodeGeneratorEx", "src\ResXFileCodeGeneratorEx\ResXFileCodeGeneratorEx.csproj", "{A8636D77-B876-4E6A-863D-8C924E40955C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResXFileCodeGeneratorEx.Common", "src\ResXFileCodeGeneratorEx.Common\ResXFileCodeGeneratorEx.Common.csproj", "{387D7726-06E5-4CF4-8DB2-A625DAB4660D}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ResXFileCodeGeneratorEx.Setup", "src\ResXFileCodeGeneratorEx.Setup\ResXFileCodeGeneratorEx.Setup.vdproj", "{B0B8940D-36C7-4536-A143-74F15CF29311}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResXFileCodeGeneratorEx.Setup.CustomTool.CustomAction", "src\ResXFileCodeGeneratorEx.Setup.CustomTool.CustomAction\ResXFileCodeGeneratorEx.Setup.CustomTool.CustomAction.csproj", "{368AF7CB-951F-4698-8355-50730E80436A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8636D77-B876-4E6A-863D-8C924E40955C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8636D77-B876-4E6A-863D-8C924E40955C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8636D77-B876-4E6A-863D-8C924E40955C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8636D77-B876-4E6A-863D-8C924E40955C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{387D7726-06E5-4CF4-8DB2-A625DAB4660D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{387D7726-06E5-4CF4-8DB2-A625DAB4660D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{387D7726-06E5-4CF4-8DB2-A625DAB4660D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{387D7726-06E5-4CF4-8DB2-A625DAB4660D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0B8940D-36C7-4536-A143-74F15CF29311}.Debug|Any CPU.ActiveCfg = Debug
+		{B0B8940D-36C7-4536-A143-74F15CF29311}.Debug|Any CPU.Build.0 = Debug
+		{B0B8940D-36C7-4536-A143-74F15CF29311}.Release|Any CPU.ActiveCfg = Release
+		{B0B8940D-36C7-4536-A143-74F15CF29311}.Release|Any CPU.Build.0 = Release
+		{368AF7CB-951F-4698-8355-50730E80436A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368AF7CB-951F-4698-8355-50730E80436A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368AF7CB-951F-4698-8355-50730E80436A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368AF7CB-951F-4698-8355-50730E80436A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A8636D77-B876-4E6A-863D-8C924E40955C} = {08F6FD98-510A-42B1-B19D-9E7DA087B967}
+		{387D7726-06E5-4CF4-8DB2-A625DAB4660D} = {08F6FD98-510A-42B1-B19D-9E7DA087B967}
+		{B0B8940D-36C7-4536-A143-74F15CF29311} = {9390AFD1-F07E-41BF-8C38-46F23CA6F9F4}
+		{368AF7CB-951F-4698-8355-50730E80436A} = {9390AFD1-F07E-41BF-8C38-46F23CA6F9F4}
+	EndGlobalSection
+EndGlobal

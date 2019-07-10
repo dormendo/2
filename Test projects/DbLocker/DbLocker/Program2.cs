@@ -1,5 +1,7 @@
 ﻿using Npgsql;
 using NpgsqlTypes;
+using Oracle.DataAccess.Client;
+using Oracle.DataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,23 +20,72 @@ namespace DbLocker
 	{
 		static void Main()
 		{
-			TestMssql();
-			//Console.ReadLine();
-			TestMssql2();
-			//Console.ReadLine();
-			TestMssql3();
-			//Console.ReadLine();
+			//TestMssql();
+			TestOracle();
 		}
+
+		#region MSSQL
+
+		static string mssqlConnstr = "Data Source=notebook; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
 
 		static void TestMssql()
 		{
-			string connstr = "Data Source=notebook; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
-			using (SqlConnection conn = new SqlConnection(connstr))
+			TestMssqIteration("1", 10);
+			TestMssqIteration("10", 10);
+			TestMssqIteration("512", 1);
+			TestMssqIteration("1024", 1);
+		}
+
+		static void TestMssqIteration(string name, int iterations)
+		{
+			Stopwatch r = new Stopwatch();
+			Stopwatch w = new Stopwatch();
+
+			TestMssql1(name, w, r);
+			w.Reset();
+			r.Reset();
+
+			for (int i = 0; i < iterations; i++)
+			{
+				TestMssql1(name, w, r);
+			}
+			Console.WriteLine($"MSSQL, {name}Мб, SQL, {iterations} раз. Запись: {w.ElapsedMilliseconds}, чтение {r.ElapsedMilliseconds}");
+			w.Reset();
+			r.Reset();
+
+			TestMssql2(name, w, r);
+			w.Reset();
+			r.Reset();
+
+			for (int i = 0; i < iterations; i++)
+			{
+				TestMssql2(name, w, r);
+			}
+			Console.WriteLine($"MSSQL, {name}Мб, SQL/FileStream, {iterations} раз. Запись: {w.ElapsedMilliseconds}, чтение {r.ElapsedMilliseconds}");
+			w.Reset();
+			r.Reset();
+
+			TestMssql3(name, w, r);
+			w.Reset();
+			r.Reset();
+
+			for (int i = 0; i < iterations; i++)
+			{
+				TestMssql3(name, w, r);
+			}
+			Console.WriteLine($"MSSQL, {name}Мб, файл/FileStream, {iterations} раз. Запись: {w.ElapsedMilliseconds}, чтение {r.ElapsedMilliseconds}");
+			w.Reset();
+			r.Reset();
+		}
+
+		static void TestMssql1(string name, Stopwatch writeStopwatch, Stopwatch readStopwatch)
+		{
+			using (SqlConnection conn = new SqlConnection(mssqlConnstr))
 			{
 				conn.Open();
 
-				Stopwatch sw1 = Stopwatch.StartNew();
-				using (FileStream fs = new FileStream("C:\\Temp\\files\\10.rar", FileMode.Open, FileAccess.Read, FileShare.None, 64 * 1024 * 1024, FileOptions.SequentialScan))
+				writeStopwatch.Start();
+				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}.rar", FileMode.Open, FileAccess.Read, FileShare.None, 64 * 1024 * 1024, FileOptions.SequentialScan))
 				{
 					using (SqlCommand cmd = new SqlCommand("UPDATE b SET d = @d WHERE id = @id", conn))
 					{
@@ -49,11 +100,27 @@ namespace DbLocker
 						cmd.ExecuteNonQuery();
 					}
 				}
-				sw1.Stop();
-				Console.WriteLine("SQL Server. Write. " + sw1.Elapsed.ToString());
+				writeStopwatch.Stop();
 
-				Stopwatch sw2 = Stopwatch.StartNew();
-				using (FileStream fs = new FileStream("C:\\Temp\\files\\10_1.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
+				using (SqlCommand cmd = new SqlCommand("CHECKPOINT", conn))
+				{
+					cmd.ExecuteNonQuery();
+				}
+
+				using (SqlCommand cmd = new SqlCommand("DBCC DROPCLEANBUFFERS", conn))
+				{
+					cmd.ExecuteNonQuery();
+				}
+			}
+
+			using (SqlConnection conn = new SqlConnection(mssqlConnstr))
+			{
+				conn.Open();
+
+				Thread.Sleep(5000);
+
+				readStopwatch.Start();
+				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}_1.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
 				{
 					using (SqlCommand cmd = new SqlCommand("SELECT d FROM b WHERE id = @id", conn))
 					{
@@ -71,20 +138,18 @@ namespace DbLocker
 						}
 					}
 				}
-				sw2.Stop();
-				Console.WriteLine("SQL Server. Read. " + sw2.Elapsed.ToString());
+				readStopwatch.Stop();
 			}
 		}
 
-		static void TestMssql2()
+		static void TestMssql2(string name, Stopwatch writeStopwatch, Stopwatch readStopwatch)
 		{
-			string connstr = "Data Source=notebook; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
-			using (SqlConnection conn = new SqlConnection(connstr))
+			using (SqlConnection conn = new SqlConnection(mssqlConnstr))
 			{
 				conn.Open();
 
-				Stopwatch sw1 = Stopwatch.StartNew();
-				using (FileStream fs = new FileStream("C:\\Temp\\files\\10.rar", FileMode.Open, FileAccess.Read, FileShare.None, 64 * 1024 * 1024, FileOptions.SequentialScan))
+				writeStopwatch.Start();
+				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}.rar", FileMode.Open, FileAccess.Read, FileShare.None, 64 * 1024 * 1024, FileOptions.SequentialScan))
 				{
 					using (SqlCommand cmd = new SqlCommand("UPDATE b2 SET d = @d WHERE id = @id", conn))
 					{
@@ -99,11 +164,27 @@ namespace DbLocker
 						cmd.ExecuteNonQuery();
 					}
 				}
-				sw1.Stop();
-				Console.WriteLine("SQL Server filestream. Write. " + sw1.Elapsed.ToString());
+				writeStopwatch.Stop();
 
-				Stopwatch sw2 = Stopwatch.StartNew();
-				using (FileStream fs = new FileStream("C:\\Temp\\files\\10_2.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
+				using (SqlCommand cmd = new SqlCommand("CHECKPOINT", conn))
+				{
+					cmd.ExecuteNonQuery();
+				}
+
+				using (SqlCommand cmd = new SqlCommand("DBCC DROPCLEANBUFFERS", conn))
+				{
+					cmd.ExecuteNonQuery();
+				}
+			}
+
+			using (SqlConnection conn = new SqlConnection(mssqlConnstr))
+			{
+				conn.Open();
+
+				Thread.Sleep(5000);
+
+				readStopwatch.Start();
+				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}_2.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
 				{
 					using (SqlCommand cmd = new SqlCommand("SELECT d FROM b2 WHERE id = @id", conn))
 					{
@@ -121,20 +202,18 @@ namespace DbLocker
 						}
 					}
 				}
-				sw2.Stop();
-				Console.WriteLine("SQL Server filestream. Read. " + sw2.Elapsed.ToString());
+				readStopwatch.Stop();
 			}
 		}
 
-		static void TestMssql3()
+		static void TestMssql3(string name, Stopwatch writeStopwatch, Stopwatch readStopwatch)
 		{
-			string connstr = "Data Source=notebook; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
-			using (SqlConnection conn = new SqlConnection(connstr))
+			using (SqlConnection conn = new SqlConnection(mssqlConnstr))
 			{
 				conn.Open();
 
-				Stopwatch sw1 = Stopwatch.StartNew();
-				using (FileStream fs = new FileStream("C:\\Temp\\files\\10.rar", FileMode.Open, FileAccess.Read, FileShare.None, 64 * 1024 * 1024, FileOptions.SequentialScan))
+				writeStopwatch.Start();
+				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}.rar", FileMode.Open, FileAccess.Read, FileShare.None, 64 * 1024 * 1024, FileOptions.SequentialScan))
 				{
 					using (SqlTransaction tx = conn.BeginTransaction())
 					{
@@ -164,11 +243,27 @@ namespace DbLocker
 						tx.Commit();
 					}
 				}
-				sw1.Stop();
-				Console.WriteLine("SQL Server filestream nosql. Write. " + sw1.Elapsed.ToString());
+				writeStopwatch.Stop();
 
-				Stopwatch sw2 = Stopwatch.StartNew();
-				using (FileStream fs = new FileStream("C:\\Temp\\files\\10_3.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
+				using (SqlCommand cmd = new SqlCommand("CHECKPOINT", conn))
+				{
+					cmd.ExecuteNonQuery();
+				}
+
+				using (SqlCommand cmd = new SqlCommand("DBCC DROPCLEANBUFFERS", conn))
+				{
+					cmd.ExecuteNonQuery();
+				}
+			}
+
+			using (SqlConnection conn = new SqlConnection(mssqlConnstr))
+			{
+				conn.Open();
+
+				Thread.Sleep(5000);
+
+				readStopwatch.Start();
+				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}_3.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
 				{
 					using (SqlTransaction tx = conn.BeginTransaction())
 					{
@@ -198,10 +293,287 @@ namespace DbLocker
 						tx.Commit();
 					}
 				}
-				sw2.Stop();
-				Console.WriteLine("SQL Server filestream nosql. Read. " + sw2.Elapsed.ToString());
+				readStopwatch.Stop();
 			}
 		}
+
+		#endregion
+
+		#region Oracle
+
+		static string oracleConnstr = "Data Source=rac1; User Id=TEST; Password=TEST; Enlist=true; Pooling=false;Metadata Pooling=false;";
+		static int oracleChunkSize = 4 * 1024 * 1024;
+
+		static void TestOracle()
+		{
+			TestOracleIteration("1", 10);
+			TestOracleIteration("10", 10);
+			TestOracleIteration("512", 1);
+			//TestOracleIteration("1024", 1);
+		}
+
+		static void TestOracleIteration(string name, int iterations)
+		{
+			Stopwatch r = new Stopwatch();
+			Stopwatch w = new Stopwatch();
+
+			//TestOracle1(name, w, r);
+			//w.Reset();
+			//r.Reset();
+
+			for (int i = 0; i < iterations; i++)
+			{
+				TestOracle1(name, w, r);
+			}
+			Console.WriteLine($"Oracle, {name}Мб, DBMS_LOB, {iterations} раз. Запись: {w.ElapsedMilliseconds}, чтение {r.ElapsedMilliseconds}");
+			w.Reset();
+			r.Reset();
+
+			//TestOracle2(name, w, r);
+			//w.Reset();
+			//r.Reset();
+
+			for (int i = 0; i < iterations; i++)
+			{
+				TestOracle2(name, w, r);
+			}
+			Console.WriteLine($"Oracle, {name}Мб, ADO.NET, {iterations} раз. Запись: {w.ElapsedMilliseconds}, чтение {r.ElapsedMilliseconds}");
+			w.Reset();
+			r.Reset();
+		}
+
+		#region DataBigBlob
+
+		static byte[] OracleCopyBuffer(byte[] source, int length)
+		{
+			byte[] copy = new byte[length];
+			Buffer.BlockCopy(source, 0, copy, 0, length);
+			return copy;
+		}
+
+		static void OracleAddBlob(OracleConnection conn, int id, byte[] blob)
+		{
+			using (OracleCommand cmd = new OracleCommand("BIG_BLOB_ADD", conn))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.FetchSize = 4 * 1024 * 1024;
+				OracleParameter idParam = new OracleParameter("p_ID", OracleDbType.Decimal);
+				idParam.Value = id;
+				cmd.Parameters.Add(idParam);
+				OracleParameter dataParam = new OracleParameter("p_DATA", OracleDbType.Blob);
+				dataParam.Value = blob;
+				cmd.Parameters.Add(dataParam);
+
+				cmd.ExecuteNonQuery();
+			}
+		}
+
+		static void OracleAppendBlob(OracleConnection conn, int id, byte[] blob)
+		{
+			using (OracleCommand cmd = new OracleCommand("BIG_BLOB_APPEND", conn))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.FetchSize = 4 * 1024 * 1024;
+				OracleParameter idParam = new OracleParameter("p_ID", OracleDbType.Decimal);
+				idParam.Value = id;
+				cmd.Parameters.Add(idParam);
+				OracleParameter dataParam = new OracleParameter("p_DATA", OracleDbType.Blob);
+				dataParam.Value = blob;
+				cmd.Parameters.Add(dataParam);
+
+				cmd.ExecuteNonQuery();
+			}
+		}
+
+		static byte[] OracleLoadBlob(OracleConnection conn, int id, int startPos, int length)
+		{
+			using (OracleCommand cmd = new OracleCommand("BIG_BLOB_LOAD", conn))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.FetchSize = 4 * 1024 * 1024;
+				OracleParameter idParam = new OracleParameter("p_ID", OracleDbType.Decimal);
+				idParam.Value = id;
+				cmd.Parameters.Add(idParam);
+				OracleParameter startPosParam = new OracleParameter("p_START_POS", OracleDbType.Int32);
+				startPosParam.Value = startPos + 1;
+				cmd.Parameters.Add(startPosParam);
+				OracleParameter lengthParam = new OracleParameter("p_LENGTH", OracleDbType.Int32);
+				lengthParam.Value = length;
+				cmd.Parameters.Add(lengthParam);
+				OracleParameter dataParam = new OracleParameter("p_DATA", OracleDbType.Blob);
+				dataParam.Direction = ParameterDirection.InputOutput;
+				dataParam.Value = new byte[length];
+				cmd.Parameters.Add(dataParam);
+				OracleParameter dataLengthParam = new OracleParameter("p_DATA_LENGTH", OracleDbType.Int32);
+				dataLengthParam.Value = length;
+				dataLengthParam.Direction = ParameterDirection.Output;
+				cmd.Parameters.Add(dataLengthParam);
+
+				cmd.ExecuteNonQuery();
+
+				OracleBlob b = dataParam.Value as OracleBlob;
+				if (b != null && !b.IsNull)
+				{
+					int dataLength = ((OracleDecimal)dataLengthParam.Value).ToInt32();
+					byte[] result = b.Value;
+					return (dataLength == length ? result : OracleCopyBuffer(result, dataLength));
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
+
+		#endregion
+
+		static void TestOracle1(string name, Stopwatch writeStopwatch, Stopwatch readStopwatch)
+		{
+			using (OracleConnection conn = new OracleConnection(oracleConnstr))
+			{
+				conn.Open();
+
+				writeStopwatch.Start();
+				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}.rar", FileMode.Open, FileAccess.Read, FileShare.None, 64 * 1024 * 1024, FileOptions.SequentialScan))
+				{
+					int bytesRead = 0;
+					bool first = true;
+					byte[] buffer = new byte[oracleChunkSize];
+					do
+					{
+						bytesRead = fs.Read(buffer, 0, oracleChunkSize);
+						if (bytesRead > 0)
+						{
+							byte[] storeBuffer = (bytesRead == oracleChunkSize ? buffer : OracleCopyBuffer(buffer, bytesRead));
+							if (first)
+							{
+								OracleAddBlob(conn, 1, storeBuffer);
+								first = false;
+							}
+							else
+							{
+								OracleAppendBlob(conn, 1, storeBuffer);
+							}
+						}
+					}
+					while (bytesRead > 0);
+				}
+				writeStopwatch.Stop();
+			}
+
+			using (OracleConnection conn = new OracleConnection(oracleConnstr))
+			{
+				conn.Open();
+
+				readStopwatch.Start();
+				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}_1.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
+				{
+					int startPosition = 0;
+					byte[] bytesRead = OracleLoadBlob(conn, 1, startPosition, oracleChunkSize);
+					while (bytesRead != null)
+					{
+						fs.Write(bytesRead, 0, bytesRead.Length);
+						startPosition += bytesRead.Length;
+						bytesRead = OracleLoadBlob(conn, 1, startPosition, oracleChunkSize);
+					}
+				}
+				readStopwatch.Stop();
+			}
+		}
+
+		static void TestOracle2(string name, Stopwatch writeStopwatch, Stopwatch readStopwatch)
+		{
+			using (OracleConnection conn = new OracleConnection(oracleConnstr))
+			{
+				conn.Open();
+
+				writeStopwatch.Start();
+				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}.rar", FileMode.Open, FileAccess.Read, FileShare.None, 64 * 1024 * 1024, FileOptions.SequentialScan))
+				{
+					using (OracleTransaction tx = conn.BeginTransaction())
+					{
+						//using (OracleCommand cmd = new OracleCommand("DECLARE c int; BEGIN BEGIN SELECT id into c FROM b WHERE id = 1 FOR UPDATE; EXCEPTION WHEN no_data_found THEN INSERT INTO B (ID, D) VALUES (1, HEXTORAW('0')); END; BEGIN SELECT id into c FROM b WHERE id = 1 AND d IS NOT NULL FOR UPDATE; EXCEPTION WHEN no_data_found THEN UPDATE B SET D = HEXTORAW('0') WHERE id = 1; END; END;", conn))
+						//{
+						//	cmd.CommandTimeout = 0;
+						//	cmd.ExecuteNonQuery();
+						//}
+
+						//using (OracleCommand cmd = new OracleCommand("SELECT id, d FROM b WHERE id = :id", conn))
+						//{
+						//	cmd.CommandTimeout = 0;
+						//	OracleParameter idParam = new OracleParameter(":id", OracleDbType.Decimal);
+						//	idParam.Value = 1;
+						//	cmd.Parameters.Add(idParam);
+
+						//	using (OracleDataReader dr = cmd.ExecuteReader())
+						//	{
+						//		if (dr.Read())
+						//		{
+						//			OracleBlob blob = dr.GetOracleBlobForUpdate(1);
+						//			fs.CopyTo(blob, 4 * 1024 * 1024);
+						//		}
+						//	}
+						//}
+
+						using (OracleCommand cmd = new OracleCommand("BIG_BLOB_SAVE", conn))
+						{
+							cmd.CommandType = CommandType.StoredProcedure;
+							cmd.FetchSize = 4 * 1024 * 1024;
+							//OracleCommandBuilder.DeriveParameters(cmd);
+							OracleParameter idParam = new OracleParameter("p_ID", OracleDbType.Decimal);
+							idParam.Value = 1;
+							cmd.Parameters.Add(idParam);
+							OracleParameter cParam = new OracleParameter("p_c", OracleDbType.RefCursor);
+							cParam.Direction = ParameterDirection.Output;
+							cmd.Parameters.Add(cParam);
+
+							using (OracleDataReader dr = cmd.ExecuteReader())
+							{
+								if (dr.Read())
+								{
+									OracleBlob blob = dr.GetOracleBlob(1);
+									
+									fs.CopyTo(blob, 4 * 1024 * 1024);
+								}
+							}
+						}
+						tx.Commit();
+					}
+				}
+				writeStopwatch.Stop();
+			}
+
+			using (OracleConnection conn = new OracleConnection(oracleConnstr))
+			{
+				conn.Open();
+
+				readStopwatch.Start();
+				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}_2.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
+				{
+					using (OracleCommand cmd = new OracleCommand("SELECT d FROM b WHERE id = :id", conn))
+					{
+						cmd.CommandTimeout = 0;
+						cmd.FetchSize = 4 * 1024 * 1024;
+						OracleParameter idParam = new OracleParameter(":id", OracleDbType.Decimal);
+						idParam.Value = 1;
+						cmd.Parameters.Add(idParam);
+
+						using (OracleDataReader dr = cmd.ExecuteReader(CommandBehavior.SequentialAccess))
+						{
+							if (dr.Read())
+							{
+								dr.GetOracleBlob(0).CopyTo(fs, 4 * 1024* 1024);
+							}
+						}
+					}
+				}
+				readStopwatch.Stop();
+			}
+		}
+
+		#endregion
+
+		#region Postgres
 
 		static void TestPostgres()
 		{
@@ -252,5 +624,7 @@ namespace DbLocker
 				}
 			}
 		}
+
+		#endregion
 	}
 }

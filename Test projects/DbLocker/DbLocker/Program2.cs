@@ -33,7 +33,7 @@ namespace DbLocker
 			TestMssqIteration("1", 10);
 			TestMssqIteration("10", 10);
 			TestMssqIteration("512", 1);
-			TestMssqIteration("1024", 1);
+			//TestMssqIteration("1024", 1);
 		}
 
 		static void TestMssqIteration(string name, int iterations)
@@ -117,8 +117,6 @@ namespace DbLocker
 			{
 				conn.Open();
 
-				Thread.Sleep(5000);
-
 				readStopwatch.Start();
 				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}_1.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
 				{
@@ -180,8 +178,6 @@ namespace DbLocker
 			using (SqlConnection conn = new SqlConnection(mssqlConnstr))
 			{
 				conn.Open();
-
-				Thread.Sleep(5000);
 
 				readStopwatch.Start();
 				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}_2.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
@@ -260,8 +256,6 @@ namespace DbLocker
 			{
 				conn.Open();
 
-				Thread.Sleep(5000);
-
 				readStopwatch.Start();
 				using (FileStream fs = new FileStream($"C:\\Temp\\files\\{name}_3.rar", FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024 * 1024, FileOptions.WriteThrough))
 				{
@@ -317,9 +311,9 @@ namespace DbLocker
 			Stopwatch r = new Stopwatch();
 			Stopwatch w = new Stopwatch();
 
-			//TestOracle1(name, w, r);
-			//w.Reset();
-			//r.Reset();
+			TestOracle1(name, w, r);
+			w.Reset();
+			r.Reset();
 
 			for (int i = 0; i < iterations; i++)
 			{
@@ -329,9 +323,9 @@ namespace DbLocker
 			w.Reset();
 			r.Reset();
 
-			//TestOracle2(name, w, r);
-			//w.Reset();
-			//r.Reset();
+			TestOracle2(name, w, r);
+			w.Reset();
+			r.Reset();
 
 			for (int i = 0; i < iterations; i++)
 			{
@@ -402,7 +396,7 @@ namespace DbLocker
 				cmd.Parameters.Add(lengthParam);
 				OracleParameter dataParam = new OracleParameter("p_DATA", OracleDbType.Blob);
 				dataParam.Direction = ParameterDirection.InputOutput;
-				dataParam.Value = new byte[length];
+				dataParam.Value = new byte[1];
 				cmd.Parameters.Add(dataParam);
 				OracleParameter dataLengthParam = new OracleParameter("p_DATA_LENGTH", OracleDbType.Int32);
 				dataLengthParam.Value = length;

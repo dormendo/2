@@ -99,4 +99,3 @@ INSERT INTO B (ID, D) VALUES (1, NULL);
 /
 COMMIT;
 /
-s

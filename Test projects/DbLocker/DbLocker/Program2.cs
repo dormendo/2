@@ -20,13 +20,14 @@ namespace DbLocker
 	{
 		static void Main()
 		{
-			//TestMssql();
+			TestMssql();
 			TestOracle();
 		}
 
 		#region MSSQL
 
-		static string mssqlConnstr = "Data Source=notebook; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
+		//static string mssqlConnstr = "Data Source=notebook; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
+		static string mssqlConnstr = "Data Source=nsigpb_agl; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
 
 		static void TestMssql()
 		{
@@ -113,6 +114,8 @@ namespace DbLocker
 				}
 			}
 
+			Thread.Sleep(1000);
+
 			using (SqlConnection conn = new SqlConnection(mssqlConnstr))
 			{
 				conn.Open();
@@ -174,6 +177,8 @@ namespace DbLocker
 					cmd.ExecuteNonQuery();
 				}
 			}
+
+			Thread.Sleep(1000);
 
 			using (SqlConnection conn = new SqlConnection(mssqlConnstr))
 			{
@@ -252,6 +257,8 @@ namespace DbLocker
 				}
 			}
 
+			Thread.Sleep(1000);
+
 			using (SqlConnection conn = new SqlConnection(mssqlConnstr))
 			{
 				conn.Open();
@@ -295,7 +302,8 @@ namespace DbLocker
 
 		#region Oracle
 
-		static string oracleConnstr = "Data Source=rac1; User Id=TEST; Password=TEST; Enlist=true; Pooling=false;Metadata Pooling=false;";
+		//static string oracleConnstr = "Data Source=rac1; User Id=TEST; Password=TEST; Enlist=true; Pooling=false;Metadata Pooling=false;";
+		static string oracleConnstr = "Data Source=oraclerdf64; User Id=NORMA_CB_NEW; Password=NORMA_CB_NEW; Enlist=true; Pooling=false;Metadata Pooling=false;";
 		static int oracleChunkSize = 4 * 1024 * 1024;
 
 		static void TestOracle()
@@ -347,7 +355,7 @@ namespace DbLocker
 
 		static void OracleAddBlob(OracleConnection conn, int id, byte[] blob)
 		{
-			using (OracleCommand cmd = new OracleCommand("BIG_BLOB_ADD", conn))
+			using (OracleCommand cmd = new OracleCommand("BBA", conn))
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.FetchSize = 4 * 1024 * 1024;
@@ -364,7 +372,7 @@ namespace DbLocker
 
 		static void OracleAppendBlob(OracleConnection conn, int id, byte[] blob)
 		{
-			using (OracleCommand cmd = new OracleCommand("BIG_BLOB_APPEND", conn))
+			using (OracleCommand cmd = new OracleCommand("BBAP", conn))
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.FetchSize = 4 * 1024 * 1024;
@@ -381,7 +389,7 @@ namespace DbLocker
 
 		static byte[] OracleLoadBlob(OracleConnection conn, int id, int startPos, int length)
 		{
-			using (OracleCommand cmd = new OracleCommand("BIG_BLOB_LOAD", conn))
+			using (OracleCommand cmd = new OracleCommand("BBL", conn))
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.FetchSize = 4 * 1024 * 1024;
@@ -509,7 +517,7 @@ namespace DbLocker
 						//	}
 						//}
 
-						using (OracleCommand cmd = new OracleCommand("BIG_BLOB_SAVE", conn))
+						using (OracleCommand cmd = new OracleCommand("BBS", conn))
 						{
 							cmd.CommandType = CommandType.StoredProcedure;
 							cmd.FetchSize = 4 * 1024 * 1024;

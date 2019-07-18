@@ -24,11 +24,6 @@ namespace DbLocker
 			TestOracle();
 		}
 
-		#region MSSQL
-
-		//static string mssqlConnstr = "Data Source=notebook; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
-		static string mssqlConnstr = "Data Source=nsigpb_agl; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
-
 		static void TestMssql()
 		{
 			TestMssqIteration("1", 10);
@@ -36,6 +31,19 @@ namespace DbLocker
 			TestMssqIteration("512", 1);
 			//TestMssqIteration("1024", 1);
 		}
+
+		static void TestOracle()
+		{
+			TestOracleIteration("1", 10);
+			TestOracleIteration("10", 10);
+			TestOracleIteration("512", 1);
+			//TestOracleIteration("1024", 1);
+		}
+
+		#region MSSQL
+
+		//static string mssqlConnstr = "Data Source=notebook; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
+		static string mssqlConnstr = "Data Source=nsigpb_agl; Database=test; Integrated Security=true; Enlist=true; Application Name=AAA; Pooling=false; MultipleActiveResultSets=true";
 
 		static void TestMssqIteration(string name, int iterations)
 		{
@@ -305,14 +313,6 @@ namespace DbLocker
 		//static string oracleConnstr = "Data Source=rac1; User Id=TEST; Password=TEST; Enlist=true; Pooling=false;Metadata Pooling=false;";
 		static string oracleConnstr = "Data Source=oraclerdf64; User Id=NORMA_CB_NEW; Password=NORMA_CB_NEW; Enlist=true; Pooling=false;Metadata Pooling=false;";
 		static int oracleChunkSize = 4 * 1024 * 1024;
-
-		static void TestOracle()
-		{
-			TestOracleIteration("1", 10);
-			TestOracleIteration("10", 10);
-			TestOracleIteration("512", 1);
-			//TestOracleIteration("1024", 1);
-		}
 
 		static void TestOracleIteration(string name, int iterations)
 		{

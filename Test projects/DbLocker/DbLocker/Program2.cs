@@ -20,7 +20,7 @@ namespace DbLocker
 	{
 		static void Main()
 		{
-			TestMssql();
+			//TestMssql();
 			TestOracle();
 		}
 
@@ -319,17 +319,17 @@ namespace DbLocker
 			Stopwatch r = new Stopwatch();
 			Stopwatch w = new Stopwatch();
 
-			TestOracle1(name, w, r);
-			w.Reset();
-			r.Reset();
+			//TestOracle1(name, w, r);
+			//w.Reset();
+			//r.Reset();
 
-			for (int i = 0; i < iterations; i++)
-			{
-				TestOracle1(name, w, r);
-			}
-			Console.WriteLine($"Oracle, {name}Мб, DBMS_LOB, {iterations} раз. Запись: {w.ElapsedMilliseconds}, чтение {r.ElapsedMilliseconds}");
-			w.Reset();
-			r.Reset();
+			//for (int i = 0; i < iterations; i++)
+			//{
+			//	TestOracle1(name, w, r);
+			//}
+			//Console.WriteLine($"Oracle, {name}Мб, DBMS_LOB, {iterations} раз. Запись: {w.ElapsedMilliseconds}, чтение {r.ElapsedMilliseconds}");
+			//w.Reset();
+			//r.Reset();
 
 			TestOracle2(name, w, r);
 			w.Reset();
@@ -519,6 +519,7 @@ namespace DbLocker
 
 						using (OracleCommand cmd = new OracleCommand("BBS", conn))
 						{
+							cmd.Transaction = tx;
 							cmd.CommandType = CommandType.StoredProcedure;
 							cmd.FetchSize = 4 * 1024 * 1024;
 							//OracleCommandBuilder.DeriveParameters(cmd);

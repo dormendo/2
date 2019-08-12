@@ -37,7 +37,7 @@ namespace FixCouchbase
 		private IMongoCollection<BsonDocument> _metadata;
 		private void PrepareMongo()
 		{
-			_mc = new MongoClient("mongodb://localhost:27017");
+			_mc = new MongoClient("mongodb://nsicluster1:27017");
 			_db = _mc.GetDatabase("Norma");
 			_metadata = _db.GetCollection<BsonDocument>("Metadata");
 		}

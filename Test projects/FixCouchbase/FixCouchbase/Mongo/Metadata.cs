@@ -40,12 +40,34 @@ namespace FixCouchbase
 			return new BsonDocument { { "_id", this.Key }, { "value", new BsonBinaryData(this.Value) } };
 		}
 
-		public Metadata FromBsonDocument(BsonDocument bd)
+		public static Metadata FromBsonDocument(BsonDocument bd)
 		{
 			string key = bd.GetValue("_id").AsString;
 			byte[] cache = bd.GetValue("value")?.AsBsonBinaryData?.Bytes;
 
 			return new Metadata(key, cache);
+		}
+
+		public unsafe bool CheckOffset(int startingInt)
+		{
+			if (this.Value == null || this.Value.Length != 32 * 1024)
+			{
+				return false;
+			}
+
+			fixed (byte* bp = this.Value)
+			{
+				int* ip = (int*)bp;
+				for (int i = 0; i < 32 * 1024 / 4; i++)
+				{
+					if (ip[i] != startingInt + i)
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
 		}
 	}
 }

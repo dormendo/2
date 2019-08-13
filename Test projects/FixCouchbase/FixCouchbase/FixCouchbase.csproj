@@ -136,6 +136,7 @@
     <Compile Include="DataAccess\Cache\NullCache.cs" />
     <Compile Include="DataAccess\Cache\ProcessSerializer.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="Mongo\Classifier.cs" />
     <Compile Include="Mongo\Metadata.cs" />
     <Compile Include="Mongo\Mongo.cs" />
     <Compile Include="Program.cs" />

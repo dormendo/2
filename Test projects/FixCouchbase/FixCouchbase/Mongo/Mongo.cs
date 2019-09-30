@@ -15,6 +15,11 @@ namespace FixCouchbase
 		{
 			PrepareMongo();
 
+			_metadata.ReplaceOne(new BsonDocument("_id", "ddddd_test"), new BsonDocument { { "_id", "ddddd_test" }, { "d", DateTime.UtcNow } }, new UpdateOptions { IsUpsert = true });
+			BsonDocument d = _metadata.Find(new BsonDocument("_id", "ddddd_test")).FirstOrDefault();
+			DateTime d1 = d.GetValue("d").AsBsonDateTime.ToUniversalTime();
+			DateTime d2 = d.GetValue("d").AsBsonDateTime.ToLocalTime();
+
 			// 1. Одновременное сохранение по 10 записей.
 			// 2. Чтение по одной записи с поиском по ключу
 			_metadata.DeleteMany(new BsonDocument());
@@ -33,6 +38,8 @@ namespace FixCouchbase
 			// 4. Чтение по одной записи с поиском по индексу и типу записи.
 			TestMongo4(10000);
 			// 5. Удаление группы записей по индексу.
+			TestMongo5(10000);
+
 			// 6. Массовое сохранение записей в коллекцию с одним индексом по "ElementId, ФИО"
 			// 7. Переименование ключа из п.6.
 		}
@@ -49,7 +56,7 @@ namespace FixCouchbase
 
 		private void PrepareMongo()
 		{
-			_mc = new MongoClient("mongodb://localhost:27017");
+			_mc = new MongoClient(System.Configuration.ConfigurationManager.AppSettings["mongoServer"]);
 			_db = _mc.GetDatabase("Norma");
 			_metadata = _db.GetCollection<BsonDocument>("Metadata");
 			_classifier = _db.GetCollection<BsonDocument>("Classifier");
@@ -239,5 +246,72 @@ namespace FixCouchbase
 			Console.WriteLine($"TestMongo4. Idx:{sw2.Elapsed.ToString()}, {sw2.ElapsedMilliseconds * 1000 / count} / 1000, {nulls2}, {incorrect2}");
 		}
 
+		private void TestMongo5(int count)
+		{
+			List<WriteModel<BsonDocument>> list = new List<WriteModel<BsonDocument>>(7);
+			int incorrect1 = 0, incorrect2 = 0;
+			Stopwatch sw1 = new Stopwatch();
+			Stopwatch sw2 = new Stopwatch();
+			for (int i = 0; i < count; i++)
+			{
+				list.Clear();
+				string iStr = i.ToString();
+				Guid elementGuid = new Guid("00000000-0000-0000-0000-" + new string('0', 12 - iStr.Length) + iStr);
+				BsonDocument byIdxBd = null;
+
+				for (int j = 0; j < classifierTypes.Length; j++)
+				{
+					Classifier.Type type = classifierTypes[j];
+					Classifier c;
+					if (type == Classifier.Type.CProps || type == Classifier.Type.CElements || type == Classifier.Type.CLinks)
+					{
+						c = new Classifier(type, i);
+					}
+					else
+					{
+						c = new Classifier(type, i, i, elementGuid);
+					}
+
+					if (type == Classifier.Type.CProps)
+					{
+						byIdxBd = c.GetFindAllByClassifierIdBson();
+					}
+
+					list.Add(new DeleteOneModel<BsonDocument>(c.GetFindByIdBson()));
+				}
+
+				if (i % 2 == 0)
+				{
+					sw1.Start();
+					BulkWriteResult bwr = _classifier.BulkWrite(list);
+					sw1.Stop();
+
+					if (bwr.DeletedCount != 7)
+					{
+						incorrect1++;
+					}
+				}
+				else
+				{
+					sw2.Start();
+					DeleteResult dr = _classifier.DeleteMany(byIdxBd);
+					sw2.Stop();
+
+					if (dr.DeletedCount != 7)
+					{
+						incorrect2++;
+					}
+				}
+
+
+				if (((i + 1) % 100) == 0)
+				{
+					Console.WriteLine(i + 1);
+				}
+			}
+
+			Console.WriteLine($"TestMongo5. {count}/2. Id:{sw1.Elapsed.ToString()}, {sw1.ElapsedMilliseconds * 1000 / count} / 1000, {incorrect1}");
+			Console.WriteLine($"TestMongo5. {count}/2. Idx:{sw2.Elapsed.ToString()}, {sw2.ElapsedMilliseconds * 1000 / count} / 1000, {incorrect2}");
+		}
 	}
 }

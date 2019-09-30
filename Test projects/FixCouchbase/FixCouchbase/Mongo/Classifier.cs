@@ -142,6 +142,11 @@ namespace FixCouchbase
 			return new BsonDocument { { "c", this.ClassifierId }, { "t", (int)this.CacheType } };
 		}
 
+		internal BsonDocument GetFindAllByClassifierIdBson()
+		{
+			return new BsonDocument { { "c", this.ClassifierId } };
+		}
+
 		internal bool Compare(Classifier c1)
 		{
 			if (c1 == null || c1.Value == null)

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Tips24.Client.Pages.ConfirmPhoneNumberPage"
+    xmlns:converters="clr-namespace:Tips24.Client.Converters;assembly=Tips24.Client"
+    
+    Title="Подтвердите телефон">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="На ваш телефон отправлена СМС с кодом. Введите код в поле ниже."/>
+            <Entry Text="{Binding SmsCode}" Keyboard="Numeric" Placeholder="Код из СМС"/>
+            
+            <Label HorizontalOptions="Center" VerticalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Не получили? " Font="Small"/>
+                        <Span Text="ОТПРАВИТЬ ЗАНОВО" TextColor="Blue">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SendVerificationCodeCommand}"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            
+            <Label Text="{Binding SendVerificationCodeCountdown, StringFormat='Отправка возможна через {0} сек.'}" 
+                   FontSize="Small" IsVisible="{Binding SendVerificationCodeCountdown, Converter=x:converters.IntToBoolConverter}"
+                   HorizontalOptions="Center"/>
+            <Button Text="Подтвердить" Command="{Binding CheckVerificationCodeCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

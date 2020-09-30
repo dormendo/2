@@ -1,0 +1,1492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.lanit.ru/Norma/WebServices/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.lanit.ru/Norma/WebServices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.lanit.ru/Norma/WebServices/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="GetSinglePosition">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SinglePositionIn" type="tns:SinglePositionInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SinglePositionInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="PositionID" type="s1:guid" use="required" />
+        <s:attribute name="ViewDate" type="s:dateTime" />
+      </s:complexType>
+      <s:element name="GetSinglePositionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSinglePositionResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="SinglePositionOut" type="tns:SinglePositionOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="Position" type="tns:PositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfColumnType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ColumnType" nillable="true" type="tns:ColumnType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ColumnType">
+        <s:attribute name="ID" type="s1:guid" use="required" />
+        <s:attribute name="Value" type="s:string" />
+        <s:attribute name="PositionID" type="s1:guid" use="required" />
+      </s:complexType>
+      <s:complexType name="SinglePositionOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StructureDescription" type="tns:StructureDescriptionType" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+        </s:sequence>
+        <s:attribute name="ViewDate" type="s:dateTime" use="required" />
+        <s:attribute name="RawCode" type="s:string" />
+      </s:complexType>
+      <s:complexType name="StructureDescriptionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CodeStep" type="tns:StepDescriptionType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FieldDescription" type="tns:FieldDescriptionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StepDescriptionType">
+        <s:attribute name="TypeID" type="s1:guid" use="required" />
+        <s:attribute name="Number" type="s:int" />
+        <s:attribute name="Delimiter" type="s:string" />
+        <s:attribute name="Name" type="s:string" />
+        <s:attribute name="AdditionalSymbol" type="s:string" />
+        <s:attribute name="Length" type="s:int" />
+        <s:attribute name="Required" type="tns:StepRequired" use="required" />
+      </s:complexType>
+      <s:simpleType name="StepRequired">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotRequired" />
+          <s:enumeration value="Required" />
+          <s:enumeration value="ExpandToRight" />
+          <s:enumeration value="ExpandToLeft" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="FieldDescriptionType">
+        <s:attribute name="TypeID" type="s1:guid" use="required" />
+        <s:attribute name="TypeName" type="s:string" />
+        <s:attribute name="ID" type="s:int" />
+        <s:attribute name="GUID" type="s1:guid" use="required" />
+        <s:attribute name="Number" type="s:int" />
+        <s:attribute name="Name" type="s:string" />
+        <s:attribute name="FullName" type="s:string" />
+        <s:attribute name="EconomicName" type="s:string" />
+        <s:attribute name="Uniqueness" type="tns:RequisiteUniqueness" />
+        <s:attribute name="UniquenessString" type="s:string" />
+        <s:attribute name="DefaultValue" type="s:string" />
+        <s:attribute name="IsRequired" type="s:boolean" />
+        <s:attribute name="Length" type="s:int" />
+        <s:attribute name="Scale" type="s:int" />
+        <s:attribute name="HasList" type="tns:ListValueType" use="required" />
+        <s:attribute name="HasListString" type="s:string" />
+        <s:attribute name="IsKey" type="s:boolean" use="required" />
+        <s:attribute name="IsAutoInc" type="s:boolean" />
+        <s:attribute name="Visible" type="s:boolean" use="required" />
+      </s:complexType>
+      <s:simpleType name="RequisiteUniqueness">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotUnique" />
+          <s:enumeration value="Unique" />
+          <s:enumeration value="Lifetime" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="ListValueType">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoList" />
+          <s:enumeration value="Simple" />
+          <s:enumeration value="Expandable" />
+          <s:enumeration value="NotExpandable" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="DataHeaderType">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="Version" type="s:string" />
+        <s:attribute name="RequestDateTime" type="s:dateTime" />
+        <s:attribute name="UserID" type="s:string" />
+        <s:attribute name="UserName" type="s:string" />
+        <s:attribute name="ErrorCode" type="s:string" />
+        <s:attribute name="ErrorDescription" type="s:string" />
+      </s:complexType>
+      <s:complexType name="PositionType">
+        <s:attribute name="RawCode" type="s:string" />
+        <s:attribute name="PositionID" type="s1:guid" use="required" />
+        <s:attribute name="StartDate" type="s:dateTime" />
+        <s:attribute name="EndDate" type="s:dateTime" />
+        <s:attribute name="Directive" type="tns:HistoryDirective" />
+        <s:attribute name="RecordID" type="s1:guid" />
+        <s:attribute name="State" type="s:int" />
+        <s:attribute name="RemoveLeft" type="s:boolean" />
+        <s:attribute name="RemoveRight" type="s:boolean" use="required" />
+        <s:attribute name="StyleIndex" type="s:int" use="required" />
+      </s:complexType>
+      <s:simpleType name="HistoryDirective">
+        <s:restriction base="s:string">
+          <s:enumeration value="Included" />
+          <s:enumeration value="Modified" />
+          <s:enumeration value="Annul" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PositionTypeExt">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PositionType">
+            <s:attribute name="IsParentPosition" type="s:boolean" use="required" />
+            <s:attribute name="IsAutoAdded" type="s:boolean" use="required" />
+            <s:attribute name="PatchNum" type="s:int" use="required" />
+            <s:attribute name="SignDate" type="s:dateTime" use="required" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetElementPositions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsIn" type="tns:ElementPositionsInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ElementPositionsInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="ViewDate" type="s:dateTime" />
+        <s:attribute name="PageNumber" type="s:int" />
+        <s:attribute name="OrderBy" type="s:string" />
+        <s:attribute name="RecordsOnPage" type="s:int" />
+        <s:attribute name="DontGetCount" type="s:boolean" />
+      </s:complexType>
+      <s:element name="GetElementPositionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetElementPositionsResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsOut" type="tns:ElementPositionsOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ElementPositionsOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StructureDescription" type="tns:StructureDescriptionType" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+          <s:element minOccurs="0" maxOccurs="1" name="PageInfo" type="tns:PageInfoType" />
+        </s:sequence>
+        <s:attribute name="ViewDate" type="s:dateTime" />
+      </s:complexType>
+      <s:complexType name="PageInfoType">
+        <s:attribute name="PagesCount" type="s:int" />
+        <s:attribute name="SortOrder" type="s:string" />
+        <s:attribute name="RecordsOnPage" type="s:int" />
+        <s:attribute name="PageNumber" type="s:int" />
+        <s:attribute name="ItemsCount" type="s:int" />
+      </s:complexType>
+      <s:complexType name="ElementPositionsExtOutDoc">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ElementPositionsOutDoc">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="GroupsValues" type="tns:ArrayOfArrayOfString" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPositionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PositionType" nillable="true" type="tns:PositionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetElementPositionsTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClassifierID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ViewDate" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ViewDateSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="PageNumber" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageNumberSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderBy" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="RecordsOnPage" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DontGetCount" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetElementPositionsTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetElementPositionsTestResult" type="tns:ArrayOfColumnType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetElementPositionsExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsExtIn" type="tns:ElementPositionsExtInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ElementPositionsExtInDoc">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ElementPositionsInDoc">
+            <s:attribute name="ExtendedLinksView" type="s:boolean" use="required" />
+            <s:attribute name="LoadMultipleLinks" type="s:boolean" use="required" />
+            <s:attribute name="PatchNumber" type="s:int" use="required" />
+            <s:attribute name="SearchInChilds" type="s:boolean" use="required" />
+            <s:attribute name="SearchInParents" type="s:boolean" use="required" />
+            <s:attribute name="ShowActual" type="s:boolean" />
+            <s:attribute name="ShowHistory" type="s:boolean" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetElementPositionsExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetElementPositionsExtResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsOut" type="tns:ElementPositionsOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetElementPositionsByDedup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsByDedupIn" type="tns:ElementPositionsByDedupInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ElementPositionsByDedupInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="ViewDate" type="s:dateTime" />
+        <s:attribute name="PageNumber" type="s:int" />
+        <s:attribute name="OrderBy" type="s:string" />
+        <s:attribute name="RecordsOnPage" type="s:int" />
+        <s:attribute name="DedupString" type="s:string" />
+        <s:attribute name="DedupAlgorithm" type="tns:DeduplicationAlgorithm" use="required" />
+      </s:complexType>
+      <s:simpleType name="DeduplicationAlgorithm">
+        <s:restriction base="s:string">
+          <s:enumeration value="MorphologicalAnalysis" />
+          <s:enumeration value="AccordComparison" />
+          <s:enumeration value="LevensteinComparison" />
+          <s:enumeration value="QGrammComparison" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetElementPositionsByDedupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetElementPositionsByDedupResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsOut" type="tns:ElementPositionsOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetElementPositionsByDedupEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsByDedupExIn" type="tns:ElementPositionsByDedupExInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ElementPositionsByDedupExInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="ViewDate" type="s:dateTime" />
+        <s:attribute name="PageNumber" type="s:int" />
+        <s:attribute name="OrderBy" type="s:string" />
+        <s:attribute name="RecordsOnPage" type="s:int" />
+        <s:attribute name="DedupString" type="s:string" />
+        <s:attribute name="DedupAlgorithm" type="tns:DeduplicationAlgorithm" use="required" />
+        <s:attribute name="ClassifierState" type="tns:ClassifierStateForSearch" />
+        <s:attribute name="MaxQuantity" type="s:int" use="required" />
+        <s:attribute name="SimilarWordsCoefficient" type="s:int" />
+        <s:attribute name="ExactWordCoefficient" type="s:int" />
+        <s:attribute name="MorphAccCompareMethod" type="tns:CompareMethod" />
+        <s:attribute name="LevensteinAutoMaxTransformations" type="s:boolean" />
+        <s:attribute name="LevensteinMaxTransformations" type="s:int" />
+        <s:attribute name="LevensteinChangeCost" type="s:int" />
+        <s:attribute name="LevensteinAdditionCost" type="s:int" />
+        <s:attribute name="LevensteinDeletionCost" type="s:int" />
+        <s:attribute name="LevensteinQgrammCutLevel" type="s:int" />
+        <s:attribute name="QgrammLength" type="s:int" />
+      </s:complexType>
+      <s:simpleType name="ClassifierStateForSearch">
+        <s:restriction base="s:string">
+          <s:enumeration value="Actual" />
+          <s:enumeration value="OnSelectedDate" />
+          <s:enumeration value="AllPosition" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="CompareMethod">
+        <s:restriction base="s:string">
+          <s:enumeration value="Exact" />
+          <s:enumeration value="Substring" />
+          <s:enumeration value="StrongExact" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetElementPositionsByDedupExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetElementPositionsByDedupExResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsOut" type="tns:ElementPositionsOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetElementPositionsByDedupExTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClassifierID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ViewDate" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ViewDateSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="PageNumber" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageNumberSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderBy" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="RecordsOnPage" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DedupString" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DedupAlgorithm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClassifierState" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ClassifierStateSpecified" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="MaxQuantity" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="SimilarWordsCoefficient" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SimilarWordsCoefficientSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExactWordCoefficient" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ExactWordCoefficientSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="MorphAccCompareMethod" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MorphAccCompareMethodSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="LevensteinAutoMaxTransformations" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="LevensteinAutoMaxTransformationsSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="LevensteinMaxTransformations" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LevensteinMaxTransformationsSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="LevensteinChangeCost" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LevensteinChangeCostSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="LevensteinAdditionCost" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LevensteinAdditionCostSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="LevensteinDeletionCost" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LevensteinDeletionCostSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="LevensteinQgrammCutLevel" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LevensteinQgrammCutLevelSpecified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="QgrammLength" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QgrammLengthSpecified" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetElementPositionsByDedupExTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetElementPositionsByDedupExTestResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsOut" type="tns:ElementPositionsOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPatchPositions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsIn" type="tns:PatchPositionsInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PatchPositionsInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="PatchNumber" type="s:int" />
+        <s:attribute name="ViewDate" type="s:dateTime" />
+        <s:attribute name="PageNumber" type="s:int" />
+        <s:attribute name="OrderBy" type="s:string" />
+        <s:attribute name="RecordsOnPage" type="s:int" />
+      </s:complexType>
+      <s:element name="GetPatchPositionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPatchPositionsResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="PatchPositionsOut" type="tns:PatchPositionsOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PatchPositionsOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StructureDescription" type="tns:StructureDescriptionType" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+          <s:element minOccurs="0" maxOccurs="1" name="PageInfo" type="tns:PageInfoType" />
+        </s:sequence>
+        <s:attribute name="ViewDate" type="s:dateTime" />
+      </s:complexType>
+      <s:element name="FindElementPositions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindElementPositionsIn" type="tns:FindElementPositionsInDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="filter" type="tns:ArrayOfSearchCriterion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FindElementPositionsInDoc">
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="ViewDate" type="s:dateTime" />
+        <s:attribute name="PageNumber" type="s:int" />
+        <s:attribute name="OrderBy" type="s:string" />
+        <s:attribute name="RecordsOnPage" type="s:int" />
+      </s:complexType>
+      <s:complexType name="ArrayOfSearchCriterion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SearchCriterion" nillable="true" type="tns:SearchCriterion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SearchCriterion">
+        <s:attribute name="OpenBracket" type="s:boolean" />
+        <s:attribute name="Name" type="s:string" />
+        <s:attribute name="Operand" type="tns:ExtColCompare" use="required" />
+        <s:attribute name="Value" type="s:string" />
+        <s:attribute name="Value2" type="s:string" />
+        <s:attribute name="CloseBracket" type="s:boolean" />
+        <s:attribute name="Criteria" type="tns:LogicCondition" />
+      </s:complexType>
+      <s:simpleType name="ExtColCompare">
+        <s:restriction base="s:string">
+          <s:enumeration value="StartsWith" />
+          <s:enumeration value="EndsWith" />
+          <s:enumeration value="Contains" />
+          <s:enumeration value="NOTContains" />
+          <s:enumeration value="Equal" />
+          <s:enumeration value="NOTEqual" />
+          <s:enumeration value="Less" />
+          <s:enumeration value="Great" />
+          <s:enumeration value="LessOrEqual" />
+          <s:enumeration value="GreatOrEqual" />
+          <s:enumeration value="Between" />
+          <s:enumeration value="NOTBetween" />
+          <s:enumeration value="IsNULL" />
+          <s:enumeration value="NOTIsNULL" />
+          <s:enumeration value="Annul" />
+          <s:enumeration value="FTSStartsWith" />
+          <s:enumeration value="LIKE" />
+          <s:enumeration value="NOTLIKE" />
+          <s:enumeration value="IN" />
+          <s:enumeration value="NOTIN" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="LogicCondition">
+        <s:restriction base="s:string">
+          <s:enumeration value="And" />
+          <s:enumeration value="Or" />
+          <s:enumeration value="Then" />
+          <s:enumeration value="Else" />
+          <s:enumeration value="Not" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="FindElementPositionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindElementPositionsResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsOut" type="tns:ElementPositionsOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindElementPositionsExtLinks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindElementPositionsExtIn" type="tns:FindElementPositionsExtInDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="filter" type="tns:ArrayOfSearchCriterion" />
+            <s:element minOccurs="0" maxOccurs="1" name="addFilter" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FindElementPositionsExtInDoc">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FindElementPositionsInDoc">
+            <s:attribute name="ExtendedLinksView" type="s:boolean" use="required" />
+            <s:attribute name="MarkPositionsWithChilds" type="s:boolean" use="required" />
+            <s:attribute name="ParentColGuid" type="s1:guid" use="required" />
+            <s:attribute name="LoadMultipleLinks" type="s:boolean" use="required" />
+            <s:attribute name="FilterDateTime" type="s:boolean" use="required" />
+            <s:attribute name="CountOfGroupFieldGuid" type="s1:guid" use="required" />
+            <s:attribute name="RefElementId" type="s:int" use="required" />
+            <s:attribute name="RefFieldGuid" type="s1:guid" use="required" />
+            <s:attribute name="AncFieldGuid" type="s1:guid" use="required" />
+            <s:attribute name="PatchNumber" type="s:int" use="required" />
+            <s:attribute name="SearchInChilds" type="s:boolean" use="required" />
+            <s:attribute name="SearchInParents" type="s:boolean" use="required" />
+            <s:attribute name="ShowActual" type="s:boolean" />
+            <s:attribute name="ShowHistory" type="s:boolean" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="FindElementPositionsExtLinksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindElementPositionsExtLinksResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsOut" type="tns:ElementPositionsOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindElementPositionsEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindElementPositionsIn" type="tns:FindElementPositionsInDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="filter" type="tns:ArrayOfSearchCriterion" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchCondition" type="tns:SearchCondition" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SearchCondition">
+        <s:attribute name="SearchInActual" type="s:boolean" />
+        <s:attribute name="SearchInHistory" type="s:boolean" />
+        <s:attribute name="SearchInAnnul" type="s:boolean" />
+      </s:complexType>
+      <s:element name="FindElementPositionsExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindElementPositionsExResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementPositionsOut" type="tns:ElementPositionsOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPositionHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PositionHistoryIn" type="tns:PositionHistoryInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PositionHistoryInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="PositionID" type="s1:guid" use="required" />
+        <s:attribute name="HistoryType" type="tns:PositionHistoryType" />
+        <s:attribute name="ViewDate" type="s:dateTime" />
+      </s:complexType>
+      <s:simpleType name="PositionHistoryType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Current" />
+          <s:enumeration value="Changes" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetPositionHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPositionHistoryResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="PositionHistoryOut" type="tns:PositionHistoryOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PositionHistoryOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StructureDescription" type="tns:StructureDescriptionType" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+        </s:sequence>
+        <s:attribute name="HistoryType" type="tns:PositionHistoryType" use="required" />
+      </s:complexType>
+      <s:element name="GetPositionHistoryExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PositionHistoryIn" type="tns:PositionHistoryInDoc" />
+            <s:element minOccurs="1" maxOccurs="1" name="withPhantoms" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPositionHistoryExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPositionHistoryExtResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="PositionHistoryOut" type="tns:PositionHistoryOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPositionStructureLinks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PositionStructureLinksIn" type="tns:PositionStructureLinksInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PositionStructureLinksInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="ColumnID" type="s1:guid" use="required" />
+        <s:attribute name="PatchID" type="s:int" use="required" />
+        <s:attribute name="PositionID" type="s1:guid" use="required" />
+        <s:attribute name="ViewDate" type="s:dateTime" />
+      </s:complexType>
+      <s:element name="GetPositionStructureLinksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPositionStructureLinksResult" type="tns:ArrayOfColumnType" />
+            <s:element minOccurs="0" maxOccurs="1" name="PositionStructureLinksOut" type="tns:PositionStructureLinksOutDoc" />
+            <s:element minOccurs="0" maxOccurs="1" name="outPositions" type="tns:ArrayOfPositionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PositionStructureLinksOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StructureDescription" type="tns:StructureDescriptionType" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+        </s:sequence>
+        <s:attribute name="ViewDate" type="s:dateTime" use="required" />
+      </s:complexType>
+      <s:element name="GetPositionDataLinks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PositionDataLinksIn" type="tns:PositionDataLinksInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PositionDataLinksInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="PositionID" type="s1:guid" use="required" />
+        <s:attribute name="ViewDate" type="s:dateTime" />
+      </s:complexType>
+      <s:element name="GetPositionDataLinksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PositionDataLinksOut" type="tns:PositionDataLinksOutDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PositionDataLinksOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LinksByElement" type="tns:LinksByElementType" />
+        </s:sequence>
+        <s:attribute name="ViewDate" type="s:dateTime" use="required" />
+      </s:complexType>
+      <s:complexType name="LinksByElementType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StructureDescription" type="tns:StructureDescriptionType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LinkedPosition" type="tns:DataLinkPositionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DataLinkPositionType">
+        <s:attribute name="RawCode" type="s:string" />
+        <s:attribute name="PositionID" type="s1:guid" use="required" />
+        <s:attribute name="StartDate" type="s:dateTime" />
+        <s:attribute name="EndDate" type="s:dateTime" />
+        <s:attribute name="LinkDescription" type="s:string" />
+        <s:attribute name="LinkType" type="tns:DataLinkType" use="required" />
+      </s:complexType>
+      <s:simpleType name="DataLinkType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Equality" />
+          <s:enumeration value="Aggregation" />
+          <s:enumeration value="Generalization" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetElementGroupments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElementGroupmentsIn" type="tns:ElementGroupmentsInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ElementGroupmentsInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+      </s:complexType>
+      <s:element name="GetElementGroupmentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetElementGroupmentsResult" type="tns:ArrayOfGroupmentType" />
+            <s:element minOccurs="0" maxOccurs="1" name="ElementGroupmentsOut" type="tns:ElementGroupmentsOutDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGroupmentType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GroupmentType" nillable="true" type="tns:GroupmentType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GroupmentType">
+        <s:attribute name="GroupmentID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="GroupmentName" type="s:string" />
+        <s:attribute name="Shared" type="s:boolean" use="required" />
+        <s:attribute name="UserLogin" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ElementGroupmentsOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGroupPositions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GroupPositionsIn" type="tns:GroupPositionsInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GroupPositionsInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="GroupmentID" type="s1:guid" use="required" />
+      </s:complexType>
+      <s:element name="GetGroupPositionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGroupPositionsResult" type="tns:ArrayOfGroupPositionType" />
+            <s:element minOccurs="0" maxOccurs="1" name="GroupPositionsOut" type="tns:GroupPositionsOutDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGroupPositionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GroupPositionType" nillable="true" type="tns:GroupPositionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GroupPositionType">
+        <s:attribute name="GroupPositionID" type="s1:guid" use="required" />
+        <s:attribute name="GroupmentID" type="s1:guid" use="required" />
+        <s:attribute name="GroupPositionName" type="s:string" />
+        <s:attribute name="ParentID" type="s1:guid" use="required" />
+      </s:complexType>
+      <s:complexType name="GroupPositionsOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetLinkRestictions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LinkRestrictionsIn" type="tns:LinkRestrictionsInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LinkRestrictionsInDoc">
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="ElementId" type="s:int" use="required" />
+        <s:attribute name="LinkId" type="s:int" use="required" />
+      </s:complexType>
+      <s:element name="GetLinkRestictionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLinkRestictionsResult" type="tns:ArrayOfLinkRestrictionType" />
+            <s:element minOccurs="0" maxOccurs="1" name="LinkRestrictionsOut" type="tns:LinkRestrictionsOutDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfLinkRestrictionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LinkRestrictionType" nillable="true" type="tns:LinkRestrictionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LinkRestrictionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ParentCondition" type="tns:SearchCriterion" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ChildCondition" type="tns:SearchCriterion" />
+        </s:sequence>
+        <s:attribute name="LinkId" type="s:int" use="required" />
+        <s:attribute name="Name" type="s:string" />
+        <s:attribute name="ParentSql" type="s:string" />
+        <s:attribute name="ChildSql" type="s:string" />
+        <s:attribute name="GUID" type="s1:guid" use="required" />
+        <s:attribute name="SaveState" type="tns:ObjectState" use="required" />
+      </s:complexType>
+      <s:simpleType name="ObjectState">
+        <s:restriction base="s:string">
+          <s:enumeration value="Unknown" />
+          <s:enumeration value="Created" />
+          <s:enumeration value="Edited" />
+          <s:enumeration value="Deleted" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="LinkRestrictionsOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LinkRestriction" type="tns:LinkRestrictionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveSearchCriterion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveSearchCriterionInDoc" type="tns:SaveSearchCriterionInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SaveSearchCriterionInDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Criterions" type="tns:ArrayOfSearchCriterion" />
+          <s:element minOccurs="0" maxOccurs="1" name="Condition" type="tns:SearchCondition" />
+        </s:sequence>
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="Type" type="tns:SaveSearchCriterionType" use="required" />
+      </s:complexType>
+      <s:simpleType name="SaveSearchCriterionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Сlassifier" />
+          <s:enumeration value="Patch" />
+          <s:enumeration value="Link" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SaveSearchCriterionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveSearchCriterionOutDoc" type="tns:SaveSearchCriterionOutDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SaveSearchCriterionOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSearchCriterionList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchCriterionListInDoc" type="tns:SearchCriterionListInDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SearchCriterionListInDoc">
+        <s:attribute name="UserLogin" type="s:string" />
+        <s:attribute name="RequestID" type="s:string" />
+        <s:attribute name="ClassifierID" type="s1:guid" use="required" />
+        <s:attribute name="ElementID" type="s1:guid" use="required" />
+        <s:attribute name="Type" type="tns:SaveSearchCriterionType" use="required" />
+        <s:attribute name="PatchNumber" type="s:int" use="required" />
+      </s:complexType>
+      <s:element name="GetSearchCriterionListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchCriterionListOutDoc" type="tns:SearchCriterionListOutDoc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SearchCriterionListOutDoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataHeader" type="tns:DataHeaderType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Criterions" type="tns:ArrayOfSearchCriterion" />
+          <s:element minOccurs="0" maxOccurs="1" name="Condition" type="tns:SearchCondition" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetSinglePositionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSinglePosition" />
+  </wsdl:message>
+  <wsdl:message name="GetSinglePositionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSinglePositionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetElementPositions" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsTestSoapIn">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsTest" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsTestSoapOut">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsExtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsExt" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsExtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsByDedupSoapIn">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsByDedup" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsByDedupSoapOut">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsByDedupResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsByDedupExSoapIn">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsByDedupEx" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsByDedupExSoapOut">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsByDedupExResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsByDedupExTestSoapIn">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsByDedupExTest" />
+  </wsdl:message>
+  <wsdl:message name="GetElementPositionsByDedupExTestSoapOut">
+    <wsdl:part name="parameters" element="tns:GetElementPositionsByDedupExTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPatchPositionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPatchPositions" />
+  </wsdl:message>
+  <wsdl:message name="GetPatchPositionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPatchPositionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindElementPositionsSoapIn">
+    <wsdl:part name="parameters" element="tns:FindElementPositions" />
+  </wsdl:message>
+  <wsdl:message name="FindElementPositionsSoapOut">
+    <wsdl:part name="parameters" element="tns:FindElementPositionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindElementPositionsExtLinksSoapIn">
+    <wsdl:part name="parameters" element="tns:FindElementPositionsExtLinks" />
+  </wsdl:message>
+  <wsdl:message name="FindElementPositionsExtLinksSoapOut">
+    <wsdl:part name="parameters" element="tns:FindElementPositionsExtLinksResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindElementPositionsExSoapIn">
+    <wsdl:part name="parameters" element="tns:FindElementPositionsEx" />
+  </wsdl:message>
+  <wsdl:message name="FindElementPositionsExSoapOut">
+    <wsdl:part name="parameters" element="tns:FindElementPositionsExResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPositionHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetPositionHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetPositionHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetPositionHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPositionHistoryExtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPositionHistoryExt" />
+  </wsdl:message>
+  <wsdl:message name="GetPositionHistoryExtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPositionHistoryExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPositionStructureLinksSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPositionStructureLinks" />
+  </wsdl:message>
+  <wsdl:message name="GetPositionStructureLinksSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPositionStructureLinksResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPositionDataLinksSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPositionDataLinks" />
+  </wsdl:message>
+  <wsdl:message name="GetPositionDataLinksSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPositionDataLinksResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetElementGroupmentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetElementGroupments" />
+  </wsdl:message>
+  <wsdl:message name="GetElementGroupmentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetElementGroupmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupPositionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGroupPositions" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupPositionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGroupPositionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLinkRestictionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLinkRestictions" />
+  </wsdl:message>
+  <wsdl:message name="GetLinkRestictionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLinkRestictionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveSearchCriterionSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveSearchCriterion" />
+  </wsdl:message>
+  <wsdl:message name="SaveSearchCriterionSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveSearchCriterionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchCriterionListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSearchCriterionList" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchCriterionListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSearchCriterionListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="PositionListSoap">
+    <wsdl:operation name="GetSinglePosition">
+      <wsdl:input message="tns:GetSinglePositionSoapIn" />
+      <wsdl:output message="tns:GetSinglePositionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositions">
+      <wsdl:input message="tns:GetElementPositionsSoapIn" />
+      <wsdl:output message="tns:GetElementPositionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsTest">
+      <wsdl:input message="tns:GetElementPositionsTestSoapIn" />
+      <wsdl:output message="tns:GetElementPositionsTestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Возвращает позиции раздела классификатора.</wsdl:documentation>
+      <wsdl:input message="tns:GetElementPositionsExtSoapIn" />
+      <wsdl:output message="tns:GetElementPositionsExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsByDedup">
+      <wsdl:input message="tns:GetElementPositionsByDedupSoapIn" />
+      <wsdl:output message="tns:GetElementPositionsByDedupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsByDedupEx">
+      <wsdl:input message="tns:GetElementPositionsByDedupExSoapIn" />
+      <wsdl:output message="tns:GetElementPositionsByDedupExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsByDedupExTest">
+      <wsdl:input message="tns:GetElementPositionsByDedupExTestSoapIn" />
+      <wsdl:output message="tns:GetElementPositionsByDedupExTestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatchPositions">
+      <wsdl:input message="tns:GetPatchPositionsSoapIn" />
+      <wsdl:output message="tns:GetPatchPositionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindElementPositions">
+      <wsdl:input message="tns:FindElementPositionsSoapIn" />
+      <wsdl:output message="tns:FindElementPositionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindElementPositionsExtLinks">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Находит позиции раздела классификатора с учетом переданного фильтра.</wsdl:documentation>
+      <wsdl:input message="tns:FindElementPositionsExtLinksSoapIn" />
+      <wsdl:output message="tns:FindElementPositionsExtLinksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindElementPositionsEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Находит позиции раздела классификатора с учетом переданного фильтра. (Расширенный).</wsdl:documentation>
+      <wsdl:input message="tns:FindElementPositionsExSoapIn" />
+      <wsdl:output message="tns:FindElementPositionsExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionHistory">
+      <wsdl:input message="tns:GetPositionHistorySoapIn" />
+      <wsdl:output message="tns:GetPositionHistorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionHistoryExt">
+      <wsdl:input message="tns:GetPositionHistoryExtSoapIn" />
+      <wsdl:output message="tns:GetPositionHistoryExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionStructureLinks">
+      <wsdl:input message="tns:GetPositionStructureLinksSoapIn" />
+      <wsdl:output message="tns:GetPositionStructureLinksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionDataLinks">
+      <wsdl:input message="tns:GetPositionDataLinksSoapIn" />
+      <wsdl:output message="tns:GetPositionDataLinksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetElementGroupments">
+      <wsdl:input message="tns:GetElementGroupmentsSoapIn" />
+      <wsdl:output message="tns:GetElementGroupmentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupPositions">
+      <wsdl:input message="tns:GetGroupPositionsSoapIn" />
+      <wsdl:output message="tns:GetGroupPositionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLinkRestictions">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Возвращает ограничения связи</wsdl:documentation>
+      <wsdl:input message="tns:GetLinkRestictionsSoapIn" />
+      <wsdl:output message="tns:GetLinkRestictionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveSearchCriterion">
+      <wsdl:input message="tns:SaveSearchCriterionSoapIn" />
+      <wsdl:output message="tns:SaveSearchCriterionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchCriterionList">
+      <wsdl:input message="tns:GetSearchCriterionListSoapIn" />
+      <wsdl:output message="tns:GetSearchCriterionListSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PositionListSoap" type="tns:PositionListSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSinglePosition">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetSinglePosition" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositions">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsTest">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositionsTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsExt">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositionsExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsByDedup">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositionsByDedup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsByDedupEx">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositionsByDedupEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsByDedupExTest">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositionsByDedupExTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPatchPositions">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetPatchPositions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindElementPositions">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/FindElementPositions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindElementPositionsExtLinks">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/FindElementPositionsExtLinks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindElementPositionsEx">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/FindElementPositionsEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionHistory">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetPositionHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionHistoryExt">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetPositionHistoryExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionStructureLinks">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetPositionStructureLinks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionDataLinks">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetPositionDataLinks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementGroupments">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementGroupments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupPositions">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetGroupPositions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLinkRestictions">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetLinkRestictions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSearchCriterion">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/SaveSearchCriterion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchCriterionList">
+      <soap:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetSearchCriterionList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PositionListSoap12" type="tns:PositionListSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSinglePosition">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetSinglePosition" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositions">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsTest">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositionsTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsExt">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositionsExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsByDedup">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositionsByDedup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsByDedupEx">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositionsByDedupEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementPositionsByDedupExTest">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementPositionsByDedupExTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPatchPositions">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetPatchPositions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindElementPositions">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/FindElementPositions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindElementPositionsExtLinks">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/FindElementPositionsExtLinks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindElementPositionsEx">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/FindElementPositionsEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionHistory">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetPositionHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionHistoryExt">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetPositionHistoryExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionStructureLinks">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetPositionStructureLinks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPositionDataLinks">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetPositionDataLinks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementGroupments">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetElementGroupments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupPositions">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetGroupPositions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLinkRestictions">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetLinkRestictions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSearchCriterion">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/SaveSearchCriterion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchCriterionList">
+      <soap12:operation soapAction="http://www.lanit.ru/Norma/WebServices/GetSearchCriterionList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PositionList">
+    <wsdl:port name="PositionListSoap" binding="tns:PositionListSoap">
+      <soap:address location="http://nsidemo/NSIPortalWebServices/PositionList.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PositionListSoap12" binding="tns:PositionListSoap12">
+      <soap12:address location="http://nsidemo/NSIPortalWebServices/PositionList.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

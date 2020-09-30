@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Tips24.Client.Pages.RegistrationPage"
+    Title="Регистрация">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Placeholder=" Введите имя" Text="{Binding Name}" />
+            <Entry Placeholder=" Введите фамилию" Text="{Binding Surname}"/>
+            <Button Text="Далее" Command="{Binding ContinueCommand}"/>
+       </StackLayout> 
+    </ContentPage.Content>
+</ContentPage>

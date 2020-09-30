@@ -1,0 +1,4 @@
+﻿GET http://localhost/TestWebApi/PositionList.asmx/BigXml HTTP/1.1
+Host: localhost
+Connection: Close
+

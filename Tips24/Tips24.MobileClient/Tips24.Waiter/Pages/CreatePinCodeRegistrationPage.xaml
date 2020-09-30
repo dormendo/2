@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Tips24.Client.Pages.CreatePinCodeRegistrationPage"
+    xmlns:customViews="using:Tips24.Client.CustomViews"
+    Title="Придумайте пин-код">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Придумайте пин-код" FontSize="Large" HorizontalOptions="Center"/>
+            <customViews:PinCodePanel VerticalOptions="CenterAndExpand" IndicatorsCount="{Binding PinCodeSize}" ActiveIndicatorsCount="{Binding PinCodeCurrentLength}"/>
+            <customViews:PinCodeKeyboard PinCodeMaxSize="{Binding PinCodeSize, Mode=OneTime}" PinCode="{Binding PinCode, Mode=TwoWay}" Command="{Binding ReturnCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

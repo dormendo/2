@@ -1,0 +1,26 @@
+﻿<Window x:Class="QrCodeTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QrCodeTest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="300"/>
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="59*"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<Button x:Name="btnTips" Content="QR-код для ООО Чаевые-24" Margin="5" Padding="7" Height="Auto" Grid.Row="1" Click="BtnTips_Click"/>
+			<Button x:Name="btnIp" Content="QR-код для ИП Галяутдинов" Margin="5" Padding="7" Height="Auto" Grid.Row="2" Click="BtnIp_Click"/>
+			<TextBox x:Name="txtCode" TextWrapping="Wrap" Margin="5" TextChanged="TxtCode_TextChanged"/>
+		</Grid>
+		<Image x:Name="image" Margin="5" Height="Auto" HorizontalAlignment="Stretch" Stretch="Uniform" VerticalAlignment="Stretch" Width="Auto"/>
+	</Grid>
+</Window>

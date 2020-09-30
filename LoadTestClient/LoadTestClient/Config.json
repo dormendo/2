@@ -1,0 +1,15 @@
+﻿{
+	"TestPlan": {
+		"Uri": "http://nsidemo/NormaDemoServices/PositionList/GetElementPositions",
+		"RequestTemplateFile": "Request.txt",
+		"Threads": 100,
+		"DataFile": "Data_offset.csv",
+		"ReportFile": "report.txt"
+	},
+	"TraceFolders": {
+		"Request": "Requests",
+		"Response": "Responses",
+		"HttpResponse": "HttpResponses",
+		"Error": "Errors"
+	}
+}

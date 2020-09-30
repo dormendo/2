@@ -1,0 +1,654 @@
+﻿USE [master]
+GO
+/****** Object:  Database [tips]    Script Date: 10/6/2018 3:29:37 PM ******/
+CREATE DATABASE [tips]
+GO
+ALTER DATABASE [tips] SET COMPATIBILITY_LEVEL = 140
+GO
+ALTER DATABASE [tips] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [tips] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [tips] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [tips] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [tips] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [tips] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [tips] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [tips] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [tips] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [tips] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [tips] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [tips] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [tips] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [tips] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [tips] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [tips] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [tips] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [tips] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [tips] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [tips] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [tips] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [tips] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [tips] SET RECOVERY FULL 
+GO
+ALTER DATABASE [tips] SET  MULTI_USER 
+GO
+ALTER DATABASE [tips] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [tips] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [tips] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [tips] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+ALTER DATABASE [tips] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [tips] SET QUERY_STORE = OFF
+GO
+USE [tips]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET IDENTITY_CACHE = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [tips]
+GO
+/****** Object:  Sequence [dbo].[Seq_Employee]    Script Date: 10/6/2018 3:29:37 PM ******/
+CREATE SEQUENCE [dbo].[Seq_Employee] 
+ AS [int]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE -2147483648
+ MAXVALUE 2147483647
+ CACHE  1000 
+GO
+USE [tips]
+GO
+/****** Object:  Sequence [dbo].[Seq_Manager]    Script Date: 10/6/2018 3:29:37 PM ******/
+CREATE SEQUENCE [dbo].[Seq_Manager] 
+ AS [int]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE -2147483648
+ MAXVALUE 2147483647
+ CACHE  1000 
+GO
+USE [tips]
+GO
+/****** Object:  Sequence [dbo].[Seq_Payment]    Script Date: 10/6/2018 3:29:37 PM ******/
+CREATE SEQUENCE [dbo].[Seq_Payment] 
+ AS [int]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE -2147483648
+ MAXVALUE 2147483647
+ CACHE  1000 
+GO
+USE [tips]
+GO
+/****** Object:  Sequence [dbo].[Seq_Place]    Script Date: 10/6/2018 3:29:37 PM ******/
+CREATE SEQUENCE [dbo].[Seq_Place] 
+ AS [int]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE -2147483648
+ MAXVALUE 2147483647
+ CACHE  1000 
+GO
+USE [tips]
+GO
+/****** Object:  Sequence [dbo].[Seq_PlaceGroup]    Script Date: 10/6/2018 3:29:37 PM ******/
+CREATE SEQUENCE [dbo].[Seq_PlaceGroup] 
+ AS [int]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE -2147483648
+ MAXVALUE 2147483647
+ CACHE  1000 
+GO
+USE [tips]
+GO
+/****** Object:  Sequence [dbo].[Seq_ShareScheme]    Script Date: 10/6/2018 3:29:37 PM ******/
+CREATE SEQUENCE [dbo].[Seq_ShareScheme] 
+ AS [int]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE -2147483648
+ MAXVALUE 2147483647
+ CACHE  1000 
+GO
+USE [tips]
+GO
+/****** Object:  Sequence [dbo].[Seq_SmsMessage]    Script Date: 10/6/2018 3:29:37 PM ******/
+CREATE SEQUENCE [dbo].[Seq_SmsMessage] 
+ AS [int]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE -2147483648
+ MAXVALUE 2147483647
+ CACHE  1000 
+GO
+USE [tips]
+GO
+/****** Object:  Sequence [dbo].[Seq_YandexKassaInvoice]    Script Date: 10/6/2018 3:29:37 PM ******/
+CREATE SEQUENCE [dbo].[Seq_YandexKassaInvoice] 
+ AS [int]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE -2147483648
+ MAXVALUE 2147483647
+ CACHE  1000 
+GO
+/****** Object:  Table [dbo].[Employee]    Script Date: 10/6/2018 3:29:37 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Employee](
+	[EmployeeId] [int] NOT NULL,
+	[PlaceId] [int] NULL,
+	[Phone] [char](10) NOT NULL,
+	[RegisterDate] [date] NOT NULL,
+	[IsDisabled] [bit] NOT NULL,
+ CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED 
+(
+	[EmployeeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EmployeeAuth]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EmployeeAuth](
+	[EmployeeId] [int] NOT NULL,
+	[Phone] [char](10) NOT NULL,
+	[PinCodeHash] [binary](64) NOT NULL,
+	[PermanentKey] [binary](64) NOT NULL,
+	[PinCodeSalt] [binary](16) NOT NULL,
+	[SpecialKey] [binary](64) NULL,
+	[SpecialKeyLastAccessDt] [datetime2](7) NULL,
+	[FailedAuthCount] [tinyint] NOT NULL,
+	[LastFailedAuthDt] [datetime2](7) NULL,
+ CONSTRAINT [PK_EmployeeAuth] PRIMARY KEY CLUSTERED 
+(
+	[Phone] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EmployeeInGroup]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EmployeeInGroup](
+	[EmployeeId] [int] NOT NULL,
+	[GroupId] [int] NOT NULL,
+ CONSTRAINT [PK_EmployeeInGroup] PRIMARY KEY CLUSTERED 
+(
+	[EmployeeId] ASC,
+	[GroupId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Manager]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Manager](
+	[ManagerId] [int] NOT NULL,
+	[PlaceId] [int] NOT NULL,
+	[Phone] [char](10) NOT NULL,
+	[IsDisabled] [bit] NOT NULL,
+ CONSTRAINT [PK_Manager] PRIMARY KEY CLUSTERED 
+(
+	[ManagerId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ManagerAuth]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ManagerAuth](
+	[ManagerId] [int] NOT NULL,
+	[Phone] [char](10) NOT NULL,
+	[PinCodeHash] [binary](64) NOT NULL,
+	[PinCodeSalt] [binary](16) NOT NULL,
+	[AuthKey] [binary](64) NULL,
+	[FailedAuthCount] [tinyint] NOT NULL,
+	[LastFailedAuthDt] [datetime2](7) NULL,
+ CONSTRAINT [PK_ManagerAuth] PRIMARY KEY CLUSTERED 
+(
+	[Phone] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Payment]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Payment](
+	[PaymentId] [int] NOT NULL,
+	[PlaceId] [int] NOT NULL,
+	[EmployeeId] [int] NULL,
+	[PaymentType] [tinyint] NOT NULL,
+	[OriginalAmount] [decimal](10, 2) NOT NULL,
+	[Amount] [decimal](10, 2) NOT NULL,
+	[Commission] [decimal](5, 2) NOT NULL,
+	[CommissionAmount] [decimal](10, 2) NOT NULL,
+	[PayoutAmount] [decimal](10, 2) NOT NULL,
+	[PaymentDt] [datetime2](7) NOT NULL,
+	[ArrivalDt] [datetime2](7) NOT NULL,
+ CONSTRAINT [PK_Payment] PRIMARY KEY CLUSTERED 
+(
+	[PaymentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PaymentExternalData]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PaymentExternalData](
+	[PaymentId] [int] NOT NULL,
+	[ExternalId] [varchar](50) NOT NULL,
+	[PayerName] [nvarchar](100) NULL,
+	[PayerCard] [varchar](20) NULL,
+ CONSTRAINT [PK_PaymentExternalData] PRIMARY KEY CLUSTERED 
+(
+	[ExternalId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PaymentShare]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PaymentShare](
+	[PaymentId] [int] NOT NULL,
+	[EmployeeId] [int] NOT NULL,
+	[Amount] [decimal](10, 2) NOT NULL,
+ CONSTRAINT [PK_PaymentShare] PRIMARY KEY CLUSTERED 
+(
+	[PaymentId] ASC,
+	[EmployeeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Place]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Place](
+	[PlaceID] [int] NOT NULL,
+	[PrincipalManager] [int] NOT NULL,
+	[DisplayName] [nvarchar](100) NOT NULL,
+	[Address] [nvarchar](100) NOT NULL,
+	[City] [nvarchar](40) NOT NULL,
+	[Phone] [char](10) NOT NULL,
+	[Email] [varchar](50) NOT NULL,
+	[Info] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Place] PRIMARY KEY CLUSTERED 
+(
+	[PlaceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PlaceGroup]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PlaceGroup](
+	[GroupId] [int] NOT NULL,
+	[PlaceId] [int] NOT NULL,
+	[SeqNum] [tinyint] NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_PlaceGroup] PRIMARY KEY CLUSTERED 
+(
+	[GroupId] ASC,
+	[PlaceId] ASC,
+	[SeqNum] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ShareScheme]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ShareScheme](
+	[ShareSchemeId] [int] NOT NULL,
+	[PlaceId] [int] NOT NULL,
+	[SchemeType] [tinyint] NOT NULL,
+	[PersonalShare] [decimal](5, 2) NOT NULL,
+	[CreateDt] [datetime2](7) NOT NULL,
+	[BeginDate] [date] NOT NULL,
+ CONSTRAINT [PK_ShareScheme] PRIMARY KEY CLUSTERED 
+(
+	[PlaceId] ASC,
+	[BeginDate] DESC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SmsMessage]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SmsMessage](
+	[MessageId] [int] NOT NULL,
+	[MessageType] [tinyint] NOT NULL,
+	[MessageParams] [nvarchar](max) NULL,
+ CONSTRAINT [PK_SmsMessage] PRIMARY KEY CLUSTERED 
+(
+	[MessageId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SsGroupShare]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SsGroupShare](
+	[ShareSchemeId] [int] NOT NULL,
+	[GroupId] [int] NOT NULL,
+	[Share] [decimal](5, 2) NOT NULL,
+ CONSTRAINT [PK_SsGroupShare] PRIMARY KEY CLUSTERED 
+(
+	[ShareSchemeId] ASC,
+	[GroupId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[YandexKassaInvoice]    Script Date: 10/6/2018 3:29:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[YandexKassaInvoice](
+	[InvoiceId] [int] NOT NULL,
+	[Operator] [tinyint] NOT NULL,
+	[Phone] [char](10) NOT NULL,
+	[Amount] [decimal](10, 2) NOT NULL,
+	[Status] [tinyint] NOT NULL
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_Employee_Phone]    Script Date: 10/6/2018 3:29:38 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Employee_Phone] ON [dbo].[Employee]
+(
+	[Phone] ASC,
+	[IsDisabled] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Employee_PlaceId]    Script Date: 10/6/2018 3:29:38 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Employee_PlaceId] ON [dbo].[Employee]
+(
+	[PlaceId] ASC,
+	[IsDisabled] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_EmployeeAuth_EmployeeId]    Script Date: 10/6/2018 3:29:38 PM ******/
+CREATE NONCLUSTERED INDEX [IX_EmployeeAuth_EmployeeId] ON [dbo].[EmployeeAuth]
+(
+	[EmployeeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_Manager_Phone]    Script Date: 10/6/2018 3:29:38 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Manager_Phone] ON [dbo].[Manager]
+(
+	[Phone] ASC,
+	[IsDisabled] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Manager_PlaceId]    Script Date: 10/6/2018 3:29:38 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Manager_PlaceId] ON [dbo].[Manager]
+(
+	[PlaceId] ASC,
+	[IsDisabled] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_ManagerAuth_ManagerId]    Script Date: 10/6/2018 3:29:38 PM ******/
+CREATE NONCLUSTERED INDEX [IX_ManagerAuth_ManagerId] ON [dbo].[ManagerAuth]
+(
+	[ManagerId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Payment_EmployeeId]    Script Date: 10/6/2018 3:29:38 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Payment_EmployeeId] ON [dbo].[Payment]
+(
+	[EmployeeId] ASC,
+	[PaymentDt] ASC
+)
+WHERE ([EmployeeId] IS NOT NULL)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Payment_PlaceId]    Script Date: 10/6/2018 3:29:38 PM ******/
+CREATE NONCLUSTERED INDEX [IX_Payment_PlaceId] ON [dbo].[Payment]
+(
+	[PlaceId] ASC,
+	[PaymentDt] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_PaymentExternalData_PaymentId]    Script Date: 10/6/2018 3:29:38 PM ******/
+CREATE NONCLUSTERED INDEX [IX_PaymentExternalData_PaymentId] ON [dbo].[PaymentExternalData]
+(
+	[PaymentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_PaymentShare_EmployeeId_PaymentId]    Script Date: 10/6/2018 3:29:38 PM ******/
+CREATE NONCLUSTERED INDEX [IX_PaymentShare_EmployeeId_PaymentId] ON [dbo].[PaymentShare]
+(
+	[EmployeeId] ASC,
+	[PaymentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Employee] ADD  CONSTRAINT [DF__Employee__EmployeeId]  DEFAULT (NEXT VALUE FOR [dbo].[Seq_Employee]) FOR [EmployeeId]
+GO
+ALTER TABLE [dbo].[Employee] ADD  CONSTRAINT [DF__Employee__RegisterDate]  DEFAULT (CONVERT([date],sysdatetime(),(0))) FOR [RegisterDate]
+GO
+ALTER TABLE [dbo].[Employee] ADD  CONSTRAINT [DF__Employee__IsDisabled]  DEFAULT ((0)) FOR [IsDisabled]
+GO
+ALTER TABLE [dbo].[EmployeeAuth] ADD  CONSTRAINT [DF__EmployeeA__FailedAuthCount]  DEFAULT ((0)) FOR [FailedAuthCount]
+GO
+ALTER TABLE [dbo].[Manager] ADD  CONSTRAINT [DF__Manager__ManagerId]  DEFAULT (NEXT VALUE FOR [dbo].[Seq_Manager]) FOR [ManagerId]
+GO
+ALTER TABLE [dbo].[Manager] ADD  CONSTRAINT [DF__Manager__IsDisabled]  DEFAULT ((0)) FOR [IsDisabled]
+GO
+ALTER TABLE [dbo].[Payment] ADD  CONSTRAINT [DF__Payment__PaymentId]  DEFAULT (NEXT VALUE FOR [dbo].[Seq_Payment]) FOR [PaymentId]
+GO
+ALTER TABLE [dbo].[Place] ADD  CONSTRAINT [DF__Place__PlaceID]  DEFAULT (NEXT VALUE FOR [dbo].[Seq_Place]) FOR [PlaceID]
+GO
+ALTER TABLE [dbo].[PlaceGroup] ADD  CONSTRAINT [DF__PlaceGrou__GroupId]  DEFAULT (NEXT VALUE FOR [dbo].[Seq_PlaceGroup]) FOR [GroupId]
+GO
+ALTER TABLE [dbo].[ShareScheme] ADD  CONSTRAINT [DF__ShareSche__ShareSchemeId]  DEFAULT (NEXT VALUE FOR [dbo].[Seq_ShareScheme]) FOR [ShareSchemeId]
+GO
+ALTER TABLE [dbo].[ShareScheme] ADD  CONSTRAINT [DF__ShareSche__CreateDt]  DEFAULT (sysdatetime()) FOR [CreateDt]
+GO
+ALTER TABLE [dbo].[SmsMessage] ADD  CONSTRAINT [DF__SmsMessag__MessageId]  DEFAULT (NEXT VALUE FOR [dbo].[Seq_SmsMessage]) FOR [MessageId]
+GO
+ALTER TABLE [dbo].[YandexKassaInvoice] ADD  CONSTRAINT [DF__YandexKas__InvoiceId]  DEFAULT (NEXT VALUE FOR [dbo].[Seq_YandexKassaInvoice]) FOR [InvoiceId]
+GO
+USE [master]
+GO
+ALTER DATABASE [tips] SET  READ_WRITE 
+GO
+
+
+
+
+
+
+
+USE [master]
+GO
+/****** Object:  Database [tips_personal]    Script Date: 10/6/2018 3:31:27 PM ******/
+CREATE DATABASE [tips_personal]
+GO
+ALTER DATABASE [tips_personal] SET COMPATIBILITY_LEVEL = 140
+GO
+ALTER DATABASE [tips_personal] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [tips_personal] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [tips_personal] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [tips_personal] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [tips_personal] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [tips_personal] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [tips_personal] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [tips_personal] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [tips_personal] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [tips_personal] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [tips_personal] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [tips_personal] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [tips_personal] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [tips_personal] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [tips_personal] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [tips_personal] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [tips_personal] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [tips_personal] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [tips_personal] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [tips_personal] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [tips_personal] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [tips_personal] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [tips_personal] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [tips_personal] SET  MULTI_USER 
+GO
+ALTER DATABASE [tips_personal] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [tips_personal] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [tips_personal] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [tips_personal] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [tips_personal] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [tips_personal] SET QUERY_STORE = OFF
+GO
+USE [tips_personal]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET IDENTITY_CACHE = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [tips_personal]
+GO
+/****** Object:  Table [dbo].[EmployeePersonalData]    Script Date: 10/6/2018 3:31:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EmployeePersonalData](
+	[EmployeeId] [int] NOT NULL,
+	[FirstName] [nvarchar](50) NOT NULL,
+	[Surname] [nvarchar](50) NULL,
+	[LastName] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_EmployeePersonalData] PRIMARY KEY CLUSTERED 
+(
+	[EmployeeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ManagerPersonalData]    Script Date: 10/6/2018 3:31:28 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ManagerPersonalData](
+	[ManagerId] [int] NOT NULL,
+	[FirstName] [nvarchar](50) NOT NULL,
+	[Surname] [nvarchar](50) NOT NULL,
+	[LastName] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_ManagerPersonalData] PRIMARY KEY CLUSTERED 
+(
+	[ManagerId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+USE [master]
+GO
+ALTER DATABASE [tips_personal] SET  READ_WRITE 
+GO

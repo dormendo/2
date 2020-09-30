@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Tips24.Client.Pages.LoginPage"
+    xmlns:customViews="using:Tips24.Client.CustomViews"
+    Padding="{OnPlatform iOS='10, 20, 10, 10', Android=10}"
+    Title="Войти">
+    
+    <StackLayout>
+        <Label Text="Введите пин-код" HorizontalOptions="Center" FontSize="Large"></Label> 
+        
+        <customViews:PinCodePanel VerticalOptions="CenterAndExpand" IndicatorsCount="{Binding PinCodeSize}" ActiveIndicatorsCount="{Binding PinCodeCurrentLength}"/>
+       
+        <Label HorizontalOptions="Center" VerticalOptions="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Забыли? " Font="Small"/>
+                    <Span Text="СМЕНИТЬ ПИН-КОД" TextColor="Blue">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangePinCodeCommand}"/>
+                        </Span.GestureRecognizers>
+                    </Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <customViews:PinCodeKeyboard PinCodeMaxSize="{Binding PinCodeSize, Mode=OneTime}" PinCode="{Binding PinCode, Mode=TwoWay}" Command="{Binding ReturnCommand}"/>
+
+    </StackLayout>
+</ContentPage>

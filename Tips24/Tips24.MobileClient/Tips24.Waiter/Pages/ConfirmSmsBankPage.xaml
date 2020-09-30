@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tips24.Client.Pages.ConfirmSmsBankPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Вы переводите чаевые на сумму "/>
+                        <Span Text="{Binding Amount, StringFormat='{0} руб.'}"/>
+                        <Span Text="{Binding PlaceName, StringFormat=' в заведении {0}'}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <!--добавить логотип-->
+            <BoxView BackgroundColor="Blue"></BoxView>
+            <Button Command="{Binding ConfirmCommand}" Text="{Binding ConfirmCommandTitle}"/>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Перечисляя чаевые через подтверждение СМС, вы соглашаетесь с условиями договора-оферты, размещенному по адресу "/>
+                        <Span Text="{Binding TipsUrl}" FontAttributes="Bold"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>            
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding PlaceName}"/>
+                        <Span Text="не несет ответственности за осуществление данных финансовых операций."/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "regular": "Data Source=STATION\\SQLEXPRESS; Integrated Security=true; Database=tips"
+  }
+}

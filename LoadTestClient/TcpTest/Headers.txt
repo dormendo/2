@@ -1,0 +1,6 @@
+﻿POST http://w4dev3:55683/PositionList/GetElementPositions HTTP/1.1
+Content-Type: application/soap+xml; charset=utf-8
+Host: nsidemo
+Content-Length: {LENGTH}
+Connection: Close
+

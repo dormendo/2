@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Tips24.Client.Pages.InputPnoneNumberSmsBankPage"
+    Title="{Binding OnlineBankServiceName, StringFormat='Оплата {0}'}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{Binding OnlineBankServiceName,StringFormat='Введите номер телефона, привязанный к {0}'}"/>
+            <Label Text="{Binding FormattedPhoneNumber}"/>
+            <Button Text="Далее" Command="{Binding ContinueCommand}"/>
+            <!--добавить логотип яндекс.касса-->
+
+            <Grid VerticalOptions="Fill">
+                <Grid.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="Button">
+                            <Setter Property="FontSize" Value="Large"></Setter>
+                        </Style>
+                    </ResourceDictionary>
+                </Grid.Resources>
+
+                <Button Text="1" Grid.Column="0" Grid.Row="0" Command="{Binding InputNumberCommand}" CommandParameter="1"/>
+                <Button Text="2" Grid.Column="1" Grid.Row="0" Command="{Binding InputNumberCommand}" CommandParameter="2"/>
+                <Button Text="3" Grid.Column="2" Grid.Row="0" Command="{Binding InputNumberCommand}" CommandParameter="3"/>
+                <Button Text="4" Grid.Column="0" Grid.Row="1" Command="{Binding InputNumberCommand}" CommandParameter="4"/>
+                <Button Text="5" Grid.Column="1" Grid.Row="1" Command="{Binding InputNumberCommand}" CommandParameter="5"/>
+                <Button Text="6" Grid.Column="2" Grid.Row="1" Command="{Binding InputNumberCommand}" CommandParameter="6"/>
+                <Button Text="7" Grid.Column="0" Grid.Row="2" Command="{Binding InputNumberCommand}" CommandParameter="7"/>
+                <Button Text="8" Grid.Column="1" Grid.Row="2" Command="{Binding InputNumberCommand}" CommandParameter="8"/>
+                <Button Text="9" Grid.Column="2" Grid.Row="2" Command="{Binding InputNumberCommand}" CommandParameter="9"/>
+                <Button Text="0" Grid.Column="1" Grid.Row="3" Command="{Binding InputNumberCommand}" CommandParameter="0"/>
+                <Button Text="&#x21E6;" Grid.Column="2" Grid.Row="3" Command="{Binding RemoveNumberCommand}" CommandParameter="1"/>
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,23 @@
+﻿{
+	"id": "239dca4c-000f-5000-a000-177d826d54e5",
+	"status": "pending",
+	"paid": false,
+	"amount": {
+		"value": "400.00",
+		"currency": "RUB"
+	},
+	"confirmation": { "type": "external" },
+	"created_at": "2018-12-08T12:18:20.962Z",
+	"description": "Дарение чаевых по агентскому договору tips24.ru/1-1",
+	"metadata": { "ir_id": "1" },
+	"payment_method": {
+		"type": "sberbank",
+		"id": "239dca4c-000f-5000-a000-177d826d54e5",
+		"saved": false
+	},
+	"recipient": {
+		"account_id": "111669",
+		"gateway_id": "223001"
+	},
+	"test": false
+}

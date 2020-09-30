@@ -1,0 +1,178 @@
+<Window x:Class="AutomateCommandCreation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AutomateCommandCreation"
+        Title="MainWindow" Width="800" MinWidth="800">
+    <TabControl Margin="0 5 0 0">
+    <TabItem Header="Генерация C# для параметризированного запроса">
+      <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Текст запроса" HorizontalAlignment="Left" Margin="5,2" Padding="5,2"
+                   VerticalAlignment="Stretch"/>
+            <TextBox TextChanged="tbQuery_OnTextChanged" x:Name="tbQuery" Margin="5,2" AcceptsReturn="true"
+                     TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Column="1" FontFamily="Consolas" FontSize="14"
+                     Height="50"/>
+          </Grid>
+          <Grid Row="1">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="cbQueryGenerateRequestResponse" IsChecked="False" Margin="5,2" VerticalAlignment="Center">Запрос и ответ (C#)</CheckBox>
+            <CheckBox x:Name="cbQueryGenerateConnection" IsChecked="False" Margin="5,2" VerticalAlignment="Center"
+                      Grid.Column="1">Открытие соединения</CheckBox>
+            <CheckBox x:Name="cbQueryGenerateTransaction" IsChecked="False" Margin="5,2" VerticalAlignment="Center"
+                      Grid.Column="2">Транзакция</CheckBox>
+            <Button Click="btnGenerateQuery_Click" x:Name="btnGenerateQuery" Margin="5,2" HorizontalAlignment="Right"
+                    Width="90" Grid.Column="3" IsEnabled="false" Content="Создать код"/>
+          </Grid>
+        </Grid>
+        <Grid Row="1">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Button Click="btnQueryParams_OnClick" x:Name="btnQueryParams" Content="Получить параметры запроса"
+                  HorizontalAlignment="Left" Margin="6 6 0 2" IsEnabled="false"/>
+          <DataGrid x:Name="dgQueryParams" Grid.Row="1" Margin="5,2" AutoGenerateColumns="false">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="Имя параметра" Binding="{Binding ParamName}"/>
+              <DataGridTextColumn Header="Тип параметра" IsReadOnly="true" Binding="{Binding TypeDescription}"/>
+            </DataGrid.Columns>
+          </DataGrid>
+          <Button Click="btnQueryMetadata_OnClick" x:Name="btnQueryMetadata" Grid.Row="2"
+                  Content="Получить метаданные" Margin="6 18 0 2" HorizontalAlignment="Left" IsEnabled="false"/>
+          <TabControl x:Name="tcResultColumns" Grid.Row="3"/>
+        </Grid>
+        <Expander x:Name="expanderQuery" Grid.Row="2" Header="Сгенерированный код (раскрывается автоматически)"
+                  Margin="5,2">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="300"/>
+            </Grid.RowDefinitions>
+            <TabControl Margin="0,2,0,0">
+              <TabItem>
+                <HeaderedContentControl.Header>
+                  <Label MouseDoubleClick="csCodeForQueryTabItemHeader_MouseDoubleClick" Margin="0" Padding="0">Код C#</Label>
+                </HeaderedContentControl.Header>
+                <TextBox x:Name="tbCsCodeForQuery" VerticalScrollBarVisibility="Visible" FontFamily="Consolas"/>
+              </TabItem>
+            </TabControl>
+          </Grid>
+        </Expander>
+      </Grid>
+    </TabItem>
+    <TabItem Header="Генерация C# для вызова процедуры">
+      <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Выбор процедуры" HorizontalAlignment="Left" Margin="5,2" Padding="5,2"
+                   VerticalAlignment="Stretch"/>
+            <ComboBox SelectionChanged="cbSqlProc_SelectionChanged" x:Name="cbSqlProc" Margin="5,2"
+                      VerticalAlignment="Stretch" IsEditable="true" Grid.Column="1" FontFamily="Consolas" FontSize="14"/>
+            <Button Click="btnRefresMsSqlSpList_OnClick" Grid.Column="2" VerticalAlignment="Center">
+              <ContentControl.Content>
+                <Image Source="updateImg.png" Width="18"/>
+              </ContentControl.Content>
+            </Button>
+          </Grid>
+          <Grid Row="1">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="cbSqlSpGenerateRequestResponse" IsChecked="False" Margin="5,2" VerticalAlignment="Center">Запрос и ответ (C#)</CheckBox>
+            <CheckBox x:Name="cbSqlSpGenerateConnection" IsChecked="False" Margin="5,2" VerticalAlignment="Center"
+                      Grid.Column="1">Открытие соединения</CheckBox>
+            <CheckBox x:Name="cbSqlSpReturnValue" IsChecked="False" Margin="5,2" VerticalAlignment="Center"
+                      Grid.Column="2">
+              Возвращаемое значение
+            </CheckBox>
+            <CheckBox x:Name="cbSqlSpTransaction" IsChecked="False" Margin="5,2" VerticalAlignment="Center"
+                      Grid.Column="3">Транзакция</CheckBox>
+            <Button Click="btnCsGenerate_Click" x:Name="btnCsGenerate" Margin="5,2" HorizontalAlignment="Right"
+                    Width="90" Grid.Column="4" IsEnabled="false">Создать код</Button>
+          </Grid>
+        </Grid>
+        <TabControl Grid.Row="1">
+          <TabItem Header="Входные данные">
+            <DataGrid x:Name="dgSqlInParams" VerticalAlignment="Stretch" Margin="5,2" AutoGenerateColumns="false"
+                      IsSelected="true">
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="Название параметра" Width="300" FontFamily="Consolas" FontSize="14"
+                                    Binding="{Binding ParamName}"/>
+                <DataGridTextColumn Header="Тип параметра" Width="300" FontFamily="Consolas" FontSize="14" IsReadOnly="true"
+                                    Binding="{Binding TypeDescription}"/>
+              </DataGrid.Columns>
+            </DataGrid>
+          </TabItem>
+          <TabItem Header="Выходные параметры">
+            <DataGrid x:Name="dgSqlOutParams" Margin="5,2" AutoGenerateColumns="false">
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="Название параметра" Width="300" FontFamily="Consolas" FontSize="14"
+                                    Binding="{Binding ParamName}"/>
+                <DataGridTextColumn Header="Тип параметра" Width="300" FontFamily="Consolas" FontSize="14" IsReadOnly="true"
+                                    Binding="{Binding TypeDescription}"/>
+              </DataGrid.Columns>
+            </DataGrid>
+          </TabItem>
+          <TabItem Header="Столбцы результата">
+            <TabControl x:Name="tcStoredProcResultColumns"/>
+          </TabItem>
+        </TabControl>
+        <Expander x:Name="expanderSqlProc" Header="Сгенерированный код (раскрывается автоматически)" Margin="5,2"
+                  Grid.Row="2">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="300"/>
+            </Grid.RowDefinitions>
+            <TabControl Margin="0,2,0,0">
+              <TabItem>
+                <HeaderedContentControl.Header>
+                  <Label MouseDoubleClick="csCodeForSpTabItemHeader_MouseDoubleClick" Margin="0" Padding="0">Код C#</Label>
+                </HeaderedContentControl.Header>
+                <TextBox x:Name="tbCsForSpCode" VerticalScrollBarVisibility="Visible" FontFamily="Consolas"/>
+              </TabItem>
+            </TabControl>
+          </Grid>
+        </Expander>
+      </Grid>
+    </TabItem>
+  </TabControl>
+</Window>

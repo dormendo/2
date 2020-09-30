@@ -1,0 +1,12 @@
+<UserControl x:Class="AutomateCommandCreation.ResultColumnControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+  <DataGrid VerticalAlignment="Stretch" Margin="5,2" AutoGenerateColumns="false" ItemsSource="{Binding}">
+    <DataGrid.Columns>
+      <DataGridTextColumn Header="Имя колонки" Binding="{Binding ParamName}"/>
+      <DataGridTextColumn Header="Тип колонки" IsReadOnly="true" Binding="{Binding TypeDescription}"/>
+    </DataGrid.Columns>
+  </DataGrid>
+</UserControl>

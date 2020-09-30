@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove=".template.config\**" />
+    <EmbeddedResource Remove=".template.config\**" />
+    <None Remove=".template.config\**" />
+  </ItemGroup>
+
+</Project>

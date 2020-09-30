@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <LangVersion>7.1</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <LangVersion>7.1</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.5.0.129452" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Syncfusion.Licensing" Version="16.4.0.52" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit" Version="16.4.0.52" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\" />
+    <Folder Include="Services\Api\Auth\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Model\" />
+    <Folder Include="CustomViews\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Pages\Waiter\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Services\Api\ApiResponseProcessor.cs" />
+    <Compile Remove="ViewModels\CreatePinCodeRegistrationViewModel %28copy%29.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Pages\InputPnoneNumberSmsBankPage.xaml.cs">
+      <DependentUpon>InputPnoneNumberSmsBankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\RegistrationPage.xaml.cs">
+      <DependentUpon>RegistrationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomViews\SteppedSlider.xaml.cs">
+      <DependentUpon>SteppedSlider.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Tips24.Server\Tips24.Dto\Tips24.Dto.csproj" />
+  </ItemGroup>
+</Project>

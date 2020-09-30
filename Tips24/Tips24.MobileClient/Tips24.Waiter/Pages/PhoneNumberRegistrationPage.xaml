@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Tips24.Client.Pages.PhoneNumberRegistrationPage"
+    xmlns:maskededit="clr-namespace:Syncfusion.XForms.MaskedEdit;assembly=Syncfusion.SfMaskedEdit.XForms"
+    Title="Регистрация">
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Вы регистрируетесь для приема чаевых как сотрудник заведения"/>
+                        <Span Text="{Binding PlaceName, StringFormat=' {0}, '}"/>
+                        <Span Text="{Binding PlaceAddress}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <maskededit:SfMaskedEdit Value="{Binding PhoneNumber}" BorderColor="Silver"  FontSize="Medium"  x:Name="sfPhone"  Mask="+\9 (000) 000 0000" Watermark="Введите телефон"  HorizontalTextAlignment="Start" WatermarkColor="#adb2bb" ValueMaskFormat="ExcludePromptAndLiterals" ValidationMode="KeyPress">
+                <maskededit:SfMaskedEdit.HeightRequest>
+                         <OnPlatform x:TypeArguments="x:Double" iOS ="32" Android="42"/>
+                </maskededit:SfMaskedEdit.HeightRequest>
+            </maskededit:SfMaskedEdit>
+            <Button Text="Далее" Command="{Binding ContinueCommand}"/>
+       </StackLayout> 
+    </ContentPage.Content>
+
+</ContentPage>

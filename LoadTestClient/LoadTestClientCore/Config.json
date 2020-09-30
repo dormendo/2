@@ -1,0 +1,21 @@
+﻿{
+	"TestPlan": {
+		"Uri": "http://nsidemo/NSIPortalWebServices/PositionList.asmx",
+		"RequestTemplateFile": "Request.txt",
+		"Threads": 10000,
+		"RequestsByThread": 1,
+		"DataCsvFile": "Data_pages.csv"
+	},
+	"Logs": {
+		"MetricsFile": "Metrics.json",
+		"LogCsvFile": "Report.csv"
+	},
+	"Trace": {
+		"Folder": "Trace",
+		"TraceRequest": "No", // SameFile - трассировка запроса в одном файле с ответом, Yes - трассировка запроса в отдельном файле, No - не трассировать запросы
+		"Sampling": {
+			"SampleRate": 100, // Процент выборки для трассировки
+			"DataField": "Trace" // Поле в в DataCsvFile, значение которого определяет, нужно ли трассировать запрос
+		}
+	}
+}

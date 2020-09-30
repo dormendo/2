@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Tips24.Client.Pages.SelectTipsModePage"
+    Title="Получить чаевые">
+    <ContentPage.Content>
+        <StackLayout>
+            <!--картинки временные, нужно создать изображения под различные размеры экранов-->
+            <Image Source="sb_qr.png" Margin="10,20,10,5">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectSberQRModeCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>       
+            <Image Source="sms_bank.png" Margin="10,5,10,10">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectSmsBankModeCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

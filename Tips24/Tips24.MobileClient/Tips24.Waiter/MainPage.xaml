@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Tips24.Client" x:Class="Tips24.Client.MainPage">
+    <StackLayout>
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <Label Text="Чаевые 24.Официант" HorizontalOptions="Center" FontSize="30"/>
+            <Label Text="Принимайте безналичные чаевые" HorizontalOptions="Center" FontSize="15" />
+            <ActivityIndicator HorizontalOptions="Center" VerticalOptions="End"  IsRunning="True"></ActivityIndicator>
+        </StackLayout>
+        
+        <StackLayout VerticalOptions="End" Padding="0,0,0,40">
+            <Label Text="Войти" HorizontalOptions="Center" TextColor="Blue" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LoginCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Зарегистрироваться" HorizontalOptions="Center" TextColor="Blue" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+        
+        <Label VerticalOptions="End" HorizontalOptions="Center" Margin="0,0,0,10" FontSize="10">(c) Чаевые 24, 2018</Label>
+    </StackLayout>
+</ContentPage>

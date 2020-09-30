@@ -1,0 +1,115 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadTestClient", "LoadTestClient\LoadTestClient.csproj", "{94F0E3F6-CE15-493E-9730-3D5C08B2106E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadTestClientCore", "LoadTestClientCore\LoadTestClientCore.csproj", "{90C3EE93-B232-4355-80C1-CFB014B50C5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpTest", "TcpTest\TcpTest.csproj", "{1B181D45-66B6-41F1-8832-AA9507334BE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBlobs", "TestBlobs\TestBlobs.csproj", "{3817D62C-0535-4F36-9C8E-55AEC7B8EE78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApi", "TestWebApi\TestWebApi.csproj", "{50871F19-4379-4554-85BD-8A5CEC275D6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpBigTest", "TcpBigTest\TcpBigTest.csproj", "{1E8999DC-4AC4-4A25-8F7A-F338206731D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlParser", "XmlParser\XmlParser.csproj", "{73D261D8-ECDB-4C51-9BE6-C84DFFDF11D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94F0E3F6-CE15-493E-9730-3D5C08B2106E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F0E3F6-CE15-493E-9730-3D5C08B2106E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F0E3F6-CE15-493E-9730-3D5C08B2106E}.Debug|x64.ActiveCfg = Debug|x64
+		{94F0E3F6-CE15-493E-9730-3D5C08B2106E}.Debug|x64.Build.0 = Debug|x64
+		{94F0E3F6-CE15-493E-9730-3D5C08B2106E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F0E3F6-CE15-493E-9730-3D5C08B2106E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94F0E3F6-CE15-493E-9730-3D5C08B2106E}.Release|x64.ActiveCfg = Release|x64
+		{94F0E3F6-CE15-493E-9730-3D5C08B2106E}.Release|x64.Build.0 = Release|x64
+		{90C3EE93-B232-4355-80C1-CFB014B50C5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90C3EE93-B232-4355-80C1-CFB014B50C5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90C3EE93-B232-4355-80C1-CFB014B50C5E}.Debug|x64.ActiveCfg = Debug|x64
+		{90C3EE93-B232-4355-80C1-CFB014B50C5E}.Debug|x64.Build.0 = Debug|x64
+		{90C3EE93-B232-4355-80C1-CFB014B50C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90C3EE93-B232-4355-80C1-CFB014B50C5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90C3EE93-B232-4355-80C1-CFB014B50C5E}.Release|x64.ActiveCfg = Release|x64
+		{90C3EE93-B232-4355-80C1-CFB014B50C5E}.Release|x64.Build.0 = Release|x64
+		{1B181D45-66B6-41F1-8832-AA9507334BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B181D45-66B6-41F1-8832-AA9507334BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B181D45-66B6-41F1-8832-AA9507334BE5}.Debug|x64.ActiveCfg = Debug|x64
+		{1B181D45-66B6-41F1-8832-AA9507334BE5}.Debug|x64.Build.0 = Debug|x64
+		{1B181D45-66B6-41F1-8832-AA9507334BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B181D45-66B6-41F1-8832-AA9507334BE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B181D45-66B6-41F1-8832-AA9507334BE5}.Release|x64.ActiveCfg = Release|x64
+		{1B181D45-66B6-41F1-8832-AA9507334BE5}.Release|x64.Build.0 = Release|x64
+		{3817D62C-0535-4F36-9C8E-55AEC7B8EE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3817D62C-0535-4F36-9C8E-55AEC7B8EE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3817D62C-0535-4F36-9C8E-55AEC7B8EE78}.Debug|x64.ActiveCfg = Debug|x64
+		{3817D62C-0535-4F36-9C8E-55AEC7B8EE78}.Debug|x64.Build.0 = Debug|x64
+		{3817D62C-0535-4F36-9C8E-55AEC7B8EE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3817D62C-0535-4F36-9C8E-55AEC7B8EE78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3817D62C-0535-4F36-9C8E-55AEC7B8EE78}.Release|x64.ActiveCfg = Release|x64
+		{3817D62C-0535-4F36-9C8E-55AEC7B8EE78}.Release|x64.Build.0 = Release|x64
+		{50871F19-4379-4554-85BD-8A5CEC275D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50871F19-4379-4554-85BD-8A5CEC275D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50871F19-4379-4554-85BD-8A5CEC275D6E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{50871F19-4379-4554-85BD-8A5CEC275D6E}.Debug|x64.Build.0 = Debug|Any CPU
+		{50871F19-4379-4554-85BD-8A5CEC275D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50871F19-4379-4554-85BD-8A5CEC275D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50871F19-4379-4554-85BD-8A5CEC275D6E}.Release|x64.ActiveCfg = Release|Any CPU
+		{50871F19-4379-4554-85BD-8A5CEC275D6E}.Release|x64.Build.0 = Release|Any CPU
+		{1E8999DC-4AC4-4A25-8F7A-F338206731D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E8999DC-4AC4-4A25-8F7A-F338206731D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E8999DC-4AC4-4A25-8F7A-F338206731D0}.Debug|x64.ActiveCfg = Debug|x64
+		{1E8999DC-4AC4-4A25-8F7A-F338206731D0}.Debug|x64.Build.0 = Debug|x64
+		{1E8999DC-4AC4-4A25-8F7A-F338206731D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E8999DC-4AC4-4A25-8F7A-F338206731D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E8999DC-4AC4-4A25-8F7A-F338206731D0}.Release|x64.ActiveCfg = Release|x64
+		{1E8999DC-4AC4-4A25-8F7A-F338206731D0}.Release|x64.Build.0 = Release|x64
+		{73D261D8-ECDB-4C51-9BE6-C84DFFDF11D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D261D8-ECDB-4C51-9BE6-C84DFFDF11D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D261D8-ECDB-4C51-9BE6-C84DFFDF11D9}.Debug|x64.ActiveCfg = Debug|x64
+		{73D261D8-ECDB-4C51-9BE6-C84DFFDF11D9}.Debug|x64.Build.0 = Debug|x64
+		{73D261D8-ECDB-4C51-9BE6-C84DFFDF11D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D261D8-ECDB-4C51-9BE6-C84DFFDF11D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D261D8-ECDB-4C51-9BE6-C84DFFDF11D9}.Release|x64.ActiveCfg = Release|Any CPU
+		{73D261D8-ECDB-4C51-9BE6-C84DFFDF11D9}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {01FF102C-BF0B-4432-B60D-11A0ADDB3D20}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dormendo.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = LoadTestClient\\LoadTestClient.csproj
+		SccProjectName1 = LoadTestClient
+		SccLocalPath1 = LoadTestClient
+		SccProjectUniqueName2 = LoadTestClientCore\\LoadTestClientCore.csproj
+		SccProjectName2 = LoadTestClientCore
+		SccLocalPath2 = LoadTestClientCore
+		SccProjectUniqueName3 = TcpTest\\TcpTest.csproj
+		SccProjectName3 = TcpTest
+		SccLocalPath3 = TcpTest
+		SccProjectUniqueName4 = TestBlobs\\TestBlobs.csproj
+		SccProjectName4 = TestBlobs
+		SccLocalPath4 = TestBlobs
+		SccProjectUniqueName5 = TcpBigTest\\TcpBigTest.csproj
+		SccProjectName5 = TcpBigTest
+		SccLocalPath5 = TcpBigTest
+		SccProjectUniqueName6 = XmlParser\\XmlParser.csproj
+		SccProjectName6 = XmlParser
+		SccLocalPath6 = XmlParser
+	EndGlobalSection
+EndGlobal

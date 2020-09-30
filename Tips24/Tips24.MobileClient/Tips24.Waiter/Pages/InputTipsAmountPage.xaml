@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:customviews="using:Tips24.Client.CustomViews"
+    xmlns:local="using:Tips24.Client.CustomViews"
+    
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Tips24.Client.Pages.InputTipsAmountPage"
+    xmlns:platform="clr-namespace:Tips24.Client.CustomViews;assembly=Tips24.Client"
+    Title="Сумма чаевых">
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Укажите сумму чаевых" HorizontalOptions="Center" FontSize="Large"/>
+            <Label Text="{Binding Amount}" HorizontalOptions="Center" FontSize="Large"/>
+            <local:SteppedSlider Value="{Binding Amount}" Maximum="900" Minimum="200" Step="50" HorizontalOptions="Fill" Margin="10"/>
+            <Grid VerticalOptions="End">
+                <Button Grid.Column="0" Text="Продолжить без ввода суммы" Command="{Binding ContinueWithoutAmountCommand}"/>
+                <Button Grid.Column="1" Text="Далее" Command="{Binding ContinueCommand}"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

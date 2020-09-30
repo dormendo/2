@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Body>
+    <GetElementPositions xmlns="http://www.lanit.ru/Norma/WebServices/">
+      <ElementPositionsIn RequestID="{function:NewGuid}" UserLogin="user1"
+        ClassifierID="0bf95c22-cafb-47f5-afb1-b12f685df06b" ElementID="ecadd9c5-2465-4905-84c0-e48ade49cccc"
+        ViewDate="{function:Today}" Offset="{data:Offset}" RecordsCount="100" DontGetCount="true" />
+    </GetElementPositions>
+  </soap12:Body>
+</soap12:Envelope>

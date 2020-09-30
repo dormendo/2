@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Tips24.Client.Pages.QRCodePage"
+    Title="Оплата Сбербанк.Онлайн">
+    
+    <TabbedPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="10, 20, 10, 10" />
+            <On Platform="Android" Value="10" />
+        </OnPlatform>
+    </TabbedPage.Padding>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Отмена" Command="{Binding CancelCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <Label Text="Откройте Сбербанк.Онлайн и воспользуйтесь оплатой через QR-код"/>
+            <BoxView BackgroundColor="Black" Margin="20"></BoxView>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Перечисляя чаевые через QR-код, вы соглашаетесь с условиями договора-оферты, размещенному по адресу "/>
+                        <Span FontAttributes="Bold" Text="{Binding TipsUrl}"/>
+                        <Span Text=". Ресторан "/>
+                        <Span Text="{Binding PlaceName}"/>
+                        <Span Text=" не несет ответственности за осуществление данных финансовых операций."/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

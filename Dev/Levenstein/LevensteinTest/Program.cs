@@ -33,7 +33,7 @@ namespace LevensteinTest
 			bool result = l.CalculateSimilarity("БАНК ГАЗПРОП", str1, out d);
 			bool result2 = l2.CalculateSimilarity(new string[] { "БОНК", "ГАЗПРОМ" }, str1, out d);
 
-			string[] sourceArr = new string[] { "ФАНК", "РАЗПРОМ" };
+			string[] sourceArr = new string[] { "БАНК", "ГАЗПРОМ" };
 			List<GCHandle> handles = new List<GCHandle>();
 			handles.Add(GCHandle.Alloc(sourceArr[0], GCHandleType.Pinned));
 			handles.Add(GCHandle.Alloc(sourceArr[1], GCHandleType.Pinned));

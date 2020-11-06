@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="CustomBinaryReader.cs" />
     <Compile Include="CustomBinaryWriter.cs" />
+    <Compile Include="L8.cs" />
     <Compile Include="L7.cs" />
     <Compile Include="L6.cs" />
     <Compile Include="L5.cs" />

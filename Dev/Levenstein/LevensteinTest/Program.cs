@@ -17,6 +17,8 @@ namespace LevensteinTest
 			int i13 = 4;
 			i11 = i12 += i13;
 
+			string str1 = "А A ТРИ ТРИ ТАНК ТАНК РУКА РУКА ВОДА ВОДА ЖАЛО ЖАЛО БАНК БАНК ВОДКА ВОДКА СТОЛБ СТОЛБ ИНВЕСТ ИНВЕСТ ЖИЛСНАБ ЖИЛСНАБ ГАЗПРОМ ГАЗПРОМ СБЕРБАНК СБЕРБАНК ИННОВАЦИИ ИННОВАЦИИ АВИАСТРОЕНИЕ АВИАСТРОЕНИЕ";
+			string str2 = "ЖИЛСНАБ ВОДА ЖАЛО СБЕРБАНК ИННОВАЦИИ СТОЛБ ВОДКА ТРИ БАНК ТАНК ГАЗПРОМ ИНВЕСТ А РУКА АВИАСТРОЕНИЕ ЖИЛСНАБ ВОДА ЖАЛО СБЕРБАНК ИННОВАЦИИ СТОЛБ ВОДКА ТРИ БАНК ТАНК ГАЗПРОМ ИНВЕСТ А РУКА АВИАСТРОЕНИЕ";
 
 			int iter = 100000;
 			L l = new L(95, 5, 1, 1, 1, 85);
@@ -26,11 +28,12 @@ namespace LevensteinTest
 			L5 l5 = new L5(95, 5, 1, 1, 1, 85);
 			L6 l6 = new L6(95, 5, 1, 1, 1, 85);
 			L7 l7 = new L7(95, 5, 1, 1, 1, 85);
+			L8 l8 = new L8(95, 5, 1, 1, 1, 85);
 			double d;
-			bool result = l.CalculateSimilarity("БАНК ГАЗПРОП", "ТРИ БАНК ВОДКА СТОЛБ ИНВЕСТ ГАЗПРОМ СБЕРБАНК ИННОВАЦИИ", out d);
-			bool result2 = l2.CalculateSimilarity(new string[] { "БАНК", "ГАЗПРОП" }, "ТРИ БАНК ВОДКА СТОЛБ ИНВЕСТ ГАЗПРОМ СБЕРБАНК ИННОВАЦИИ", out d);
+			bool result = l.CalculateSimilarity("БАНК ГАЗПРОП", str1, out d);
+			bool result2 = l2.CalculateSimilarity(new string[] { "БОНК", "ГАЗПРОМ" }, str1, out d);
 
-			string[] sourceArr = new string[] { "БАНК", "ГАЗПРОП" };
+			string[] sourceArr = new string[] { "ФАНК", "РАЗПРОМ" };
 			List<GCHandle> handles = new List<GCHandle>();
 			handles.Add(GCHandle.Alloc(sourceArr[0], GCHandleType.Pinned));
 			handles.Add(GCHandle.Alloc(sourceArr[1], GCHandleType.Pinned));
@@ -39,40 +42,64 @@ namespace LevensteinTest
 			fixed (char** pSourceArr = sourcePArr)
 			fixed (int* pSourceLenArr = sourceLenArr)
 			{
-				bool result3 = l3.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, "ТРИ БАНК ВОДКА СТОЛБ ИНВЕСТ ГАЗПРОМ СБЕРБАНК ИННОВАЦИИ", out d);
-				bool result4 = l4.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, "ТРИ БАНК ВОДКА СТОЛБ ИНВЕСТ ГАЗПРОМ СБЕРБАНК ИННОВАЦИИ", out d);
-				bool result5 = l5.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, "ТРИ БАНК ВОДКА СТОЛБ ИНВЕСТ ГАЗПРОМ СБЕРБАНК ИННОВАЦИИ", out d);
-				bool result6 = l6.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, "ТРИ БАНК ВОДКА СТОЛБ ИНВЕСТ ГАЗПРОМ СБЕРБАНК ИННОВАЦИИ", out d);
+				bool result3 = l3.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, str1, out d);
+				bool result4 = l4.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, str1, out d);
+				bool result5 = l5.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, str1, out d);
+				bool result6 = l6.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, str1, out d);
 
 				byte[] input7;
 				using (MemoryStream ms = new MemoryStream())
 				{
 					using (CustomBinaryWriter w = new CustomBinaryWriter(ms))
 					{ // А ТРИ БАНК ВОДКА СТОЛБ ИНВЕСТ ГАЗПРОМ СБЕРБАНК ИННОВАЦИИ АВИАСТРОЕНИЕ
-						w.Write(10);
+						w.Write(30);
+						w.Write(1);
 						w.Write(1);
 						w.Write(3);
+						w.Write(3);
+						w.Write(4);
+						w.Write(4);
+						w.Write(4);
+						w.Write(4);
+						w.Write(4);
+						w.Write(4);
+						w.Write(4);
+						w.Write(4);
+						w.Write(4);
 						w.Write(4);
 						w.Write(5);
 						w.Write(5);
+						w.Write(5);
+						w.Write(5);
+						w.Write(6);
 						w.Write(6);
 						w.Write(7);
+						w.Write(7);
+						w.Write(7);
+						w.Write(7);
+						w.Write(8);
 						w.Write(8);
 						w.Write(9);
+						w.Write(9);
 						w.Write(12);
-						w.WriteUnicodeString("АТРИБАНКВОДКАСТОЛБИНВЕСТГАЗПРОМСБЕРБАНКИННОВАЦИИАВИАСТРОЕНИЕ");
+						w.Write(12);
+						w.WriteUnicodeString(str1.Replace(" ", ""));
 					}
 
 					input7 = ms.ToArray();
 				}
 
 				bool result7 = l7.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, input7, out d);
+				Console.WriteLine(d);
+				bool result8 = l8.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, input7, out d);
+				Console.WriteLine(d);
 
+				//GC.TryStartNoGCRegion(256 * 1024 * 1024, 256 * 1024 * 1024, false);
 				Stopwatch sw = new Stopwatch();
 				sw.Start();
 				for (int i = 0; i < iter; i++)
 				{
-					l.CalculateSimilarity("БАНК ГАЗПРОП", "СБЕРБАНК ИННОВАЦИИ СТОЛБ ВОДКА ТРИ БАНК ГАЗПРОМ ИНВЕСТ А АВИАСТРОЕНИЕ", out d);
+					l.CalculateSimilarity("БАНК ГАЗПРОП", str2, out d);
 				}
 				sw.Stop();
 				Console.WriteLine($"{sw.Elapsed}");
@@ -80,7 +107,7 @@ namespace LevensteinTest
 				sw.Restart();
 				for (int i = 0; i < iter; i++)
 				{
-					l2.CalculateSimilarity(sourceArr, "СБЕРБАНК ИННОВАЦИИ СТОЛБ ВОДКА ТРИ БАНК ГАЗПРОМ ИНВЕСТ А АВИАСТРОЕНИЕ", out d);
+					l2.CalculateSimilarity(sourceArr, str2, out d);
 				}
 				sw.Stop();
 				Console.WriteLine($"{sw.Elapsed}");
@@ -88,7 +115,7 @@ namespace LevensteinTest
 				sw.Restart();
 				for (int i = 0; i < iter; i++)
 				{
-					l3.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, "СБЕРБАНК ИННОВАЦИИ СТОЛБ ВОДКА ТРИ БАНК ГАЗПРОМ ИНВЕСТ А АВИАСТРОЕНИЕ", out d);
+					l3.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, str2, out d);
 				}
 				sw.Stop();
 				Console.WriteLine($"{sw.Elapsed}");
@@ -96,7 +123,7 @@ namespace LevensteinTest
 				sw.Restart();
 				for (int i = 0; i < iter; i++)
 				{
-					l4.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, "А ТРИ БАНК ВОДКА СТОЛБ ИНВЕСТ ГАЗПРОМ СБЕРБАНК ИННОВАЦИИ АВИАСТРОЕНИЕ", out d);
+					l4.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, str1, out d);
 				}
 				sw.Stop();
 				Console.WriteLine($"{sw.Elapsed}");
@@ -104,7 +131,7 @@ namespace LevensteinTest
 				sw.Restart();
 				for (int i = 0; i < iter; i++)
 				{
-					l5.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, "А ТРИ БАНК ВОДКА СТОЛБ ИНВЕСТ ГАЗПРОМ СБЕРБАНК ИННОВАЦИИ АВИАСТРОЕНИЕ", out d);
+					l5.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, str1, out d);
 				}
 				sw.Stop();
 				Console.WriteLine($"{sw.Elapsed}");
@@ -112,7 +139,7 @@ namespace LevensteinTest
 				sw.Restart();
 				for (int i = 0; i < iter; i++)
 				{
-					l6.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, "А ТРИ БАНК ВОДКА СТОЛБ ИНВЕСТ ГАЗПРОМ СБЕРБАНК ИННОВАЦИИ АВИАСТРОЕНИЕ", out d);
+					l6.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, str1, out d);
 				}
 				sw.Stop();
 				Console.WriteLine($"{sw.Elapsed}");
@@ -121,6 +148,14 @@ namespace LevensteinTest
 				for (int i = 0; i < iter; i++)
 				{
 					l7.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, input7, out d);
+				}
+				sw.Stop();
+				Console.WriteLine($"{sw.Elapsed}");
+
+				sw.Restart();
+				for (int i = 0; i < iter; i++)
+				{
+					l8.CalculateSimilarity(pSourceArr, pSourceLenArr, 2, input7, out d);
 				}
 				sw.Stop();
 				Console.WriteLine($"{sw.Elapsed}");

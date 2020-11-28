@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace LevensteinTest
+namespace LevensteinTestNet
 {
 	class Program
 	{
@@ -35,7 +35,7 @@ namespace LevensteinTest
 
 
 			string sourceString = "БОРЩ ГОЗГЛОМ";
-			string[] sourceArr = sourceString.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+			string[] sourceArr = sourceString.Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 			List<GCHandle> handles = new List<GCHandle>();
 			handles.Add(GCHandle.Alloc(sourceArr[0], GCHandleType.Pinned));
 			handles.Add(GCHandle.Alloc(sourceArr[1], GCHandleType.Pinned));
